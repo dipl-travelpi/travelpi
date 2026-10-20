@@ -2,7 +2,9 @@
 // Usage: node server.js <csr|ssr|ssg> [port]
 //
 // - Caching is disabled so every page load is a first load.
-// - Every response is gzip-compressed the same way, as a real web server would do.
+// - Files from the build are served pre-compressed (SvelteKit default); responses created per
+//   request (SSR HTML, /api/status) are gzip-compressed on the fly. Everything reaches the browser
+//   compressed, as with a real deployment.
 // - GET /stats returns the CPU time and memory of this process.
 import { createServer } from 'node:http';
 import compression from 'compression';

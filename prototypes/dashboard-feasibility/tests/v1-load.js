@@ -1,4 +1,5 @@
-// V1c: 5 and 10 simulated devices load the dashboard over and over for 30 s each (criterion E).
+// V1c: 5, 10 and 30 simulated devices load the dashboard over and over for 30 s each (criterion E).
+// 30 devices is far above normal use and shows how much the Pi can serve at most.
 // Each device repeats exactly the requests Chrome made for one page load in V1a,
 // so run tests/v1-chrome.js for the same mode first.
 //
@@ -7,7 +8,7 @@ import { readFileSync, writeFileSync } from 'node:fs';
 import autocannon from 'autocannon';
 
 const [url, mode] = process.argv.slice(2);
-const DEVICES = [5, 10]; // 5 = minimum from the requirements (/LL070/)
+const DEVICES = [5, 10, 30]; // 5 = minimum from the requirements (/LL070/)
 const DURATION_S = 30;
 
 const chrome = JSON.parse(readFileSync(`results/v1-chrome-${mode}.json`, 'utf8'));
@@ -22,7 +23,7 @@ for (const devices of DEVICES) {
 		url,
 		connections: devices,
 		duration: DURATION_S,
-		headers: { 'accept-encoding': 'gzip' },
+		headers: { 'accept-encoding': 'gzip, deflate, br' }, // same as Chrome and Safari
 		requests: pageRequests.map((path) => ({ method: 'GET', path }))
 	});
 	const after = await stats();

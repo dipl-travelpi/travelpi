@@ -6,7 +6,7 @@ dashboard:
 
 | Test | Compares | Measures | Criteria |
 |---|---|---|---|
-| **V1** | Rendering: CSR, SSR, SSG | load time on a phone, server CPU per page load, server load with 5 and 10 devices, whether the first view shows the current status | A, B, E |
+| **V1** | Rendering: CSR, SSR, SSG | load time on a phone, server CPU per page load, server load with 5, 10 and 30 devices, whether the first view shows the current status | A, B, E |
 | **V2** | Communication: REST polling (1 s, 5 s), Server-Sent Events, WebSocket | delay until a status change reaches the dashboard, server CPU and memory with 1, 5 and 10 clients | B, E |
 
 Criteria (from the thesis): A load time under 3 s, B status shown is current, E resources on the Pi.
@@ -18,9 +18,9 @@ Criteria (from the thesis): A load time under 3 s, B status shown is current, E 
 | `src/` | The test dashboard (SvelteKit): one page with mock status data. This is what is measured. |
 | `src/lib/status.js` | Mock status data (tunnel, kill switch, 30 Wi-Fi networks) |
 | `src/lib/self-measure.ts` | Lets a real phone measure its own page loads (V1) |
-| `server.js` | Serves one build of the dashboard: no caching, gzip for all responses, `GET /stats` for CPU and memory |
+| `server.js` | Serves one build of the dashboard: no caching, compressed responses (build files pre-compressed), `GET /stats` for CPU and memory |
 | `tests/v1-chrome.js` | V1: 16 page loads in Chrome with mobile throttling |
-| `tests/v1-load.js` | V1: 5 and 10 simulated devices loading the page for 30 s |
+| `tests/v1-load.js` | V1: 5, 10 and 30 simulated devices loading the page for 30 s each |
 | `tests/v2-server.js` | V2: server on the Pi that toggles the kill switch at random times |
 | `tests/v2-clients.js` | V2: clients that report back every change they see |
 | `results/` | Measurements from the Raspberry Pi |
