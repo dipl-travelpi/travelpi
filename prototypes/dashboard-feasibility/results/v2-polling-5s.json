@@ -1,0 +1,38 @@
+{
+  "method": "polling-5s",
+  "url": "http://192.168.0.222:3001",
+  "date": "2026-10-20T19:16:55.140Z",
+  "durationMs": 120000,
+  "results": [
+    {
+      "method": "polling-5s",
+      "clients": 1,
+      "confirmations": 19,
+      "delayMedianMs": 2089.498882000007,
+      "delayP95Ms": 4911.321329999999,
+      "delayMaxMs": 4911.321329999999,
+      "serverCpuPercent": 0.3958491666666667,
+      "serverRssMb": 65.093632
+    },
+    {
+      "method": "polling-5s",
+      "clients": 5,
+      "confirmations": 100,
+      "delayMedianMs": 2876.55838100001,
+      "delayP95Ms": 4985.291818999976,
+      "delayMaxMs": 4995.8386379999865,
+      "serverCpuPercent": 0.7954825000000001,
+      "serverRssMb": 66.27328
+    },
+    {
+      "method": "polling-5s",
+      "clients": 10,
+      "confirmations": 180,
+      "delayMedianMs": 2274.499185999972,
+      "delayP95Ms": 4902.613142999995,
+      "delayMaxMs": 4920.672676999995,
+      "serverCpuPercent": 1.3325324999999997,
+      "serverRssMb": 74.907648
+    }
+  ]
+}

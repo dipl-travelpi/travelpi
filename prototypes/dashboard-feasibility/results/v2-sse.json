@@ -1,0 +1,38 @@
+{
+  "method": "sse",
+  "url": "http://192.168.0.222:3001",
+  "date": "2026-10-20T19:23:24.695Z",
+  "durationMs": 120000,
+  "results": [
+    {
+      "method": "sse",
+      "clients": 1,
+      "confirmations": 23,
+      "delayMedianMs": 19.045254000004206,
+      "delayP95Ms": 104.7310639999996,
+      "delayMaxMs": 105.4195980000004,
+      "serverCpuPercent": 0.2858758333333333,
+      "serverRssMb": 64.319488
+    },
+    {
+      "method": "sse",
+      "clients": 5,
+      "confirmations": 115,
+      "delayMedianMs": 26.714053999981843,
+      "delayP95Ms": 107.36252299998887,
+      "delayMaxMs": 121.43536299999687,
+      "serverCpuPercent": 0.6256491666666667,
+      "serverRssMb": 66.154496
+    },
+    {
+      "method": "sse",
+      "clients": 10,
+      "confirmations": 230,
+      "delayMedianMs": 38.424081000033766,
+      "delayP95Ms": 115.5528199999826,
+      "delayMaxMs": 126.55478199996287,
+      "serverCpuPercent": 0.9423891666666666,
+      "serverRssMb": 66.547712
+    }
+  ]
+}

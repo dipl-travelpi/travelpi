@@ -1,0 +1,22 @@
+# V1, code 18b8068
+2026-10-20T20:34:51+02:00 csr vor-start | throttled=0x50000 | temp=44.5'C | arm=1200MHz | undervoltage-events-last-10min=0 | load=0.27 0.09 0.11
+2026-10-20T20:45:52+02:00 csr nach-chrome | throttled=0x50000 | temp=43.5'C | arm=1200MHz | undervoltage-events-last-10min=0 | load=0.00 0.00 0.04
+2026-10-20T20:47:24+02:00 csr nach-last | throttled=0x50000 | temp=54.8'C | arm=1200MHz | undervoltage-events-last-10min=0 | load=1.05 0.32 0.15
+2026-10-20T20:49:08+02:00 csr nach-iphone | throttled=0x50000 | temp=45.6'C | arm=1199MHz | undervoltage-events-last-10min=0 | load=0.18 0.22 0.13
+2026-10-20T20:49:34+02:00 ssr vor-start | throttled=0x50000 | temp=45.6'C | arm=1200MHz | undervoltage-events-last-10min=0 | load=0.12 0.20 0.12
+2026-10-20T20:50:21+02:00 ssr nach-chrome | throttled=0x50000 | temp=45.6'C | arm=1200MHz | undervoltage-events-last-10min=0 | load=0.10 0.19 0.12
+2026-10-20T20:51:52+02:00 ssr nach-last | throttled=0x50000 | temp=55.8'C | arm=1200MHz | undervoltage-events-last-10min=0 | load=1.29 0.54 0.25
+2026-10-20T20:54:21+02:00 ssr nach-iphone | throttled=0x50000 | temp=46.2'C | arm=1200MHz | undervoltage-events-last-10min=0 | load=0.24 0.37 0.22
+2026-10-20T20:54:40+02:00 ssg vor-start | throttled=0x50000 | temp=45.6'C | arm=1199MHz | undervoltage-events-last-10min=0 | load=0.17 0.34 0.22
+2026-10-20T20:55:26+02:00 ssg nach-chrome | throttled=0x50000 | temp=45.1'C | arm=1200MHz | undervoltage-events-last-10min=0 | load=0.08 0.29 0.20
+2026-10-20T20:56:57+02:00 ssg nach-last | throttled=0x50000 | temp=55.8'C | arm=1200MHz | undervoltage-events-last-10min=0 | load=1.08 0.58 0.32
+2026-10-20T20:58:50+02:00 ssg nach-iphone | throttled=0x50000 | temp=46.2'C | arm=1200MHz | undervoltage-events-last-10min=0 | load=0.16 0.39 0.27
+# V2, code 18b8068
+2026-10-20T21:04:15+02:00 v2 polling-1s vor-start | throttled=0x50000 | temp=44.0'C | arm=1200MHz | undervoltage-events-last-10min=0 | load=0.06 0.14 0.18
+2026-10-20T21:10:26+02:00 v2 polling-1s nach | throttled=0x50000 | temp=43.5'C | arm=1200MHz | undervoltage-events-last-10min=0 | load=0.00 0.03 0.11
+2026-10-20T21:10:45+02:00 v2 polling-5s vor-start | throttled=0x50000 | temp=44.0'C | arm=1200MHz | undervoltage-events-last-10min=0 | load=0.00 0.03 0.11
+2026-10-20T21:16:55+02:00 v2 polling-5s nach | throttled=0x50000 | temp=43.5'C | arm=1200MHz | undervoltage-events-last-10min=0 | load=0.00 0.00 0.06
+2026-10-20T21:17:15+02:00 v2 sse vor-start | throttled=0x50000 | temp=44.5'C | arm=1200MHz | undervoltage-events-last-10min=0 | load=0.00 0.00 0.06
+2026-10-20T21:23:25+02:00 v2 sse nach | throttled=0x50000 | temp=43.5'C | arm=1200MHz | undervoltage-events-last-10min=0 | load=0.02 0.01 0.03
+2026-10-20T21:23:44+02:00 v2 websocket vor-start | throttled=0x50000 | temp=43.5'C | arm=1200MHz | undervoltage-events-last-10min=0 | load=0.01 0.01 0.03
+2026-10-20T21:29:54+02:00 v2 websocket nach | throttled=0x50000 | temp=44.0'C | arm=1200MHz | undervoltage-events-last-10min=0 | load=0.03 0.01 0.00

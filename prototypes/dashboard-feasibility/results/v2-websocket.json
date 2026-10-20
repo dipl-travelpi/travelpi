@@ -1,0 +1,38 @@
+{
+  "method": "websocket",
+  "url": "http://192.168.0.222:3001",
+  "date": "2026-10-20T19:29:54.438Z",
+  "durationMs": 120000,
+  "results": [
+    {
+      "method": "websocket",
+      "clients": 1,
+      "confirmations": 21,
+      "delayMedianMs": 18.906545999998343,
+      "delayP95Ms": 187.2580220000018,
+      "delayMaxMs": 208.0097989999922,
+      "serverCpuPercent": 0.26758249999999995,
+      "serverRssMb": 64.45056
+    },
+    {
+      "method": "websocket",
+      "clients": 5,
+      "confirmations": 105,
+      "delayMedianMs": 30.208136999979615,
+      "delayP95Ms": 107.71117399999639,
+      "delayMaxMs": 244.8067840000149,
+      "serverCpuPercent": 0.5650525000000001,
+      "serverRssMb": 66.285568
+    },
+    {
+      "method": "websocket",
+      "clients": 10,
+      "confirmations": 210,
+      "delayMedianMs": 37.1976179999765,
+      "delayP95Ms": 105.92846599995391,
+      "delayMaxMs": 246.14889599999879,
+      "serverCpuPercent": 0.8821300000000001,
+      "serverRssMb": 66.940928
+    }
+  ]
+}

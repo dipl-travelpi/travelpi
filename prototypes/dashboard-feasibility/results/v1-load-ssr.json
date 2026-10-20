@@ -1,0 +1,51 @@
+{
+  "mode": "ssr",
+  "url": "http://192.168.0.222:3000",
+  "date": "2026-10-20T18:51:52.088Z",
+  "durationS": 30,
+  "pageRequests": [
+    "/",
+    "/_app/immutable/entry/start.BVWWSMes.js",
+    "/_app/immutable/entry/payload.DSmR2FwN.js",
+    "/_app/immutable/chunks/CRzLMJPS.js",
+    "/_app/immutable/chunks/nN5ktkPC.js",
+    "/_app/immutable/chunks/C3RmQlxU.js",
+    "/_app/immutable/chunks/DWUbBz_q.js",
+    "/_app/immutable/chunks/DYrviY11.js",
+    "/_app/immutable/entry/app.up8DpRRw.js",
+    "/_app/immutable/nodes/0.BeRtvvj-.js",
+    "/_app/immutable/chunks/DK3Fl9T5.js",
+    "/_app/immutable/nodes/2.DNDYImmo.js",
+    "/_app/immutable/assets/2.B-JC95lY.css",
+    "/_app/immutable/nodes/1.CtM_gOqf.js"
+  ],
+  "results": [
+    {
+      "devices": 5,
+      "pageLoadsPerSecond": 18.405,
+      "requestLatencyMedianMs": 13,
+      "requestLatencyP97_5Ms": 96,
+      "serverCpuPercent": 124.59386333333333,
+      "serverRssMb": 120.385536,
+      "errors": 0
+    },
+    {
+      "devices": 10,
+      "pageLoadsPerSecond": 25.792857142857144,
+      "requestLatencyMedianMs": 22,
+      "requestLatencyP97_5Ms": 105,
+      "serverCpuPercent": 138.22477666666668,
+      "serverRssMb": 153.300992,
+      "errors": 0
+    },
+    {
+      "devices": 30,
+      "pageLoadsPerSecond": 32.431428571428576,
+      "requestLatencyMedianMs": 56,
+      "requestLatencyP97_5Ms": 144,
+      "serverCpuPercent": 151.02684999999997,
+      "serverRssMb": 166.350848,
+      "errors": 0
+    }
+  ]
+}
