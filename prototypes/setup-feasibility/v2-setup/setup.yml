@@ -1,0 +1,60 @@
+# V2, Ansible variant: shortened TravelPi setup (install packages, write a config file,
+# enable a service). Run as root:
+#   ansible-playbook -i localhost, -c local v2-setup/setup.yml
+# Error test: add -e bad_package=true
+- name: Shortened TravelPi setup
+  hosts: localhost
+  gather_facts: false
+  vars:
+    packages: [hostapd, dnsmasq, wireguard-tools]
+
+  tasks:
+    - name: Install packages
+      ansible.builtin.apt:
+        name: "{{ packages + (['travelpi-does-not-exist'] if bad_package | default(false) | bool else []) }}"
+        update_cache: true
+        cache_valid_time: 3600
+
+    - name: Create config directory
+      ansible.builtin.file:
+        path: /etc/travelpi
+        state: directory
+        mode: "0755"
+
+    - name: Write config file
+      ansible.builtin.copy:
+        dest: /etc/travelpi/travelpi.conf
+        mode: "0644"
+        content: |
+          # TravelPi test configuration (feasibility test V2)
+          interface=wlan0
+          ssid=TravelPi-Test
+
+    - name: Write service unit
+      ansible.builtin.copy:
+        dest: /etc/systemd/system/travelpi-test.service
+        mode: "0644"
+        content: |
+          [Unit]
+          Description=TravelPi feasibility test service
+
+          [Service]
+          ExecStart=/bin/sleep infinity
+
+          [Install]
+          WantedBy=multi-user.target
+      notify: Reload systemd
+
+    - name: Apply pending handlers before starting the service
+      ansible.builtin.meta: flush_handlers
+
+    - name: Enable and start service
+      ansible.builtin.systemd_service:
+        name: travelpi-test.service
+        enabled: true
+        state: started
+
+  handlers:
+    - name: Reload systemd
+      ansible.builtin.systemd_service:
+        daemon_reload: true

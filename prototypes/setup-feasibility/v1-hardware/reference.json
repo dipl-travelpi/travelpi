@@ -1,0 +1,9 @@
+{
+  "_comment": "What is really there. Fill in before running check-v1.py (usb_stick_id: 'lsusb' or the label on the stick).",
+  "model": "3B",
+  "memory_mb": 1024,
+  "cpu_cores": 4,
+  "wifi_internal": true,
+  "bluetooth": true,
+  "usb_stick_id": "xxxx:xxxx"
+}
