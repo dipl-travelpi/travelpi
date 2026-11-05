@@ -25,6 +25,8 @@ model, memory, CPU cores, internal Wi-Fi, Bluetooth and a USB Wi-Fi stick.
 | `v3-backup/` | `fernet.py`, `openssl.sh`, `age.sh`, `vault.sh` (the variants), `run-v3.sh`, helpers |
 | `summarize.py` | Collects all values for the thesis into `results/summary.md` |
 | `results/` | Measurements from the Raspberry Pi |
+| `dev-container/` | Runs V1 to V3 in Debian Trixie containers on a development computer (see below) |
+| `results-dev/` | Results from the development computer, not from the Raspberry Pi |
 
 The shortened setup in V2 stands for the real setup script: it installs `hostapd`, `dnsmasq`
 and `wireguard-tools`, writes `/etc/travelpi/travelpi.conf` and enables `travelpi-test.service`.
@@ -72,14 +74,15 @@ cd setup-feasibility
 sudo bash v2-setup/run-v2.sh first python    # or shell, or ansible
 ```
 
-For `ansible`, the script first installs Ansible itself and records the time and disk space in
+For `ansible`, the script first installs Ansible itself (package `ansible-core`, which has all
+modules the playbook uses) and records the time and disk space in
 `results/v2-ansible-install-*.txt`. Copy `results/` to the computer, flash again, next variant.
 Three runs per variant are a good number (nine flashes); one per variant is the minimum.
 
 ## 3. Install everything else (last flash, after the Ansible first run)
 
 ```bash
-sudo apt-get install -y python3-psutil python3-pyudev python3-cryptography age ansible
+sudo apt-get install -y python3-psutil python3-pyudev age ansible-core
 bash env-info.sh
 vcgencmd get_throttled    # should be throttled=0x0
 ```
@@ -144,3 +147,22 @@ python3 summarize.py
 
 `results/summary.md` contains all values for the tables in the thesis. Copy `results/` to the
 computer and commit it.
+
+## Before the Raspberry Pi is available: development computer
+
+`dev-container/` runs the tests in Debian Trixie containers (the base of Raspberry Pi OS Trixie)
+with rootless Podman. A fresh container stands for a freshly flashed system. The results go to
+`results-dev/`. Times measured there are not Raspberry Pi times; only the ratio between the
+variants is meaningful. V1 cannot detect Raspberry Pi hardware in a container, so it only gives
+runtime, memory and the output format.
+
+```bash
+podman build -t travelpi-setup-feasibility dev-container
+bash dev-container/run-dev.sh        # V2 (3 first runs per variant), V3
+bash dev-container/run-dev-v1.sh     # V1
+```
+
+Use rootless Podman, never Docker with `--privileged` or `--cgroupns=host`: systemd in such a
+container takes over the terminals, kernel settings and cgroups of the computer and can end the
+desktop session. `results-dev/discarded/` holds a run that was invalid (the computer went to
+sleep during it).

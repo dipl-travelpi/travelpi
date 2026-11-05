@@ -12,5 +12,5 @@ mkdir -p results
     if python3 -c "import $module" 2>/dev/null; then echo "python3-$module: yes"; else echo "python3-$module: no"; fi
   done
   echo
-  apt-cache policy python3-psutil python3-pyudev python3-cryptography age ansible
+  apt-cache policy python3-psutil python3-pyudev python3-cryptography age ansible-core
 } | tee results/preinstalled.txt

@@ -1,0 +1,7 @@
+hostapd 2:2.10-24 install ok installed
+dnsmasq 2.91-1+deb13u2 install ok installed
+wireguard-tools 1.0.20210914-3 install ok installed
+/etc/travelpi/travelpi.conf modified=1793885389 sha256=52df38beeacda5be
+/etc/systemd/system/travelpi-test.service modified=1793885385 sha256=10aa844257fe2daf
+service enabled: enabled
+service started at: 437076371

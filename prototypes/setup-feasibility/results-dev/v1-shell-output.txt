@@ -1,0 +1,6 @@
+revision=
+model=unknown
+memory_mb=
+memory_total_kb=16137256
+cpu_cores=8
+bluetooth=hci0

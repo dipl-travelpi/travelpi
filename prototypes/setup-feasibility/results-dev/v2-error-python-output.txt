@@ -1,0 +1,21 @@
+Hit:1 http://deb.debian.org/debian trixie InRelease
+Hit:2 http://deb.debian.org/debian trixie-updates InRelease
+Hit:3 http://deb.debian.org/debian-security trixie-security InRelease
+Reading package lists...
+Reading package lists...
+Building dependency tree...
+Reading state information...
+E: Unable to locate package travelpi-does-not-exist
+Traceback (most recent call last):
+  File "/root/setup-feasibility/v2-setup/setup.py", line 59, in <module>
+    main()
+    ~~~~^^
+  File "/root/setup-feasibility/v2-setup/setup.py", line 48, in main
+    subprocess.run(["apt-get", "install", "-y", *missing], check=True,
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                   env={**os.environ, "DEBIAN_FRONTEND": "noninteractive"})
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/subprocess.py", line 577, in run
+    raise CalledProcessError(retcode, process.args,
+                             output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['apt-get', 'install', '-y', 'travelpi-does-not-exist']' returned non-zero exit status 100.

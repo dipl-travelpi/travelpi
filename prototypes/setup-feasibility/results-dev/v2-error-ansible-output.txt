@@ -1,0 +1,18 @@
+
+PLAY [Shortened TravelPi setup] ************************************************
+
+TASK [Install packages] ********************************************************
+[WARNING]: Host 'localhost' is using the discovered Python interpreter at '/usr/bin/python3.13', but future installation of another Python interpreter could cause a different interpreter to be discovered. See https://docs.ansible.com/ansible-core/2.19/reference_appendices/interpreter_discovery.html for more information.
+[ERROR]: Task failed: Module failed: No package matching 'travelpi-does-not-exist' is available
+Origin: /root/setup-feasibility/v2-setup/setup.yml:12:7
+
+10
+11   tasks:
+12     - name: Install packages
+         ^ column 7
+
+fatal: [localhost]: FAILED! => {"ansible_facts": {"discovered_interpreter_python": "/usr/bin/python3.13"}, "changed": false, "msg": "No package matching 'travelpi-does-not-exist' is available"}
+
+PLAY RECAP *********************************************************************
+localhost                  : ok=0    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+

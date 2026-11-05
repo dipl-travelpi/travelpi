@@ -4,8 +4,10 @@
 
 # Fields of the new-style revision code (Raspberry Pi documentation, "Raspberry Pi revision codes")
 revision=$(awk -F': ' '/^Revision/ {print $2}' /proc/cpuinfo)
-code=$((16#$revision))
-if (( code & (1 << 23) )); then
+code=$((16#${revision:-0}))    # no revision code: not a Raspberry Pi (e.g. the development container)
+if [[ -z $revision ]]; then
+  model=unknown
+elif (( code & (1 << 23) )); then
   case $(( (code >> 4) & 0xff )) in
     8) model=3B ;; 9) model=Zero ;; 12) model="Zero W" ;; 13) model=3B+ ;; 14) model=3A+ ;;
     17) model=4B ;; 18) model="Zero 2 W" ;; 19) model=400 ;; 23) model=5 ;; 25) model=500 ;;

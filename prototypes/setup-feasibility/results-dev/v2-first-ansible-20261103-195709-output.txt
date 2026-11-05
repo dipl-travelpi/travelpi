@@ -1,0 +1,26 @@
+
+PLAY [Shortened TravelPi setup] ************************************************
+
+TASK [Install packages] ********************************************************
+changed: [localhost]
+
+TASK [Create config directory] *************************************************
+changed: [localhost]
+
+TASK [Write config file] *******************************************************
+changed: [localhost]
+
+TASK [Write service unit] ******************************************************
+changed: [localhost]
+
+TASK [Apply pending handlers before starting the service] **********************
+
+RUNNING HANDLER [Reload systemd] ***********************************************
+ok: [localhost]
+
+TASK [Enable and start service] ************************************************
+changed: [localhost]
+
+PLAY RECAP *********************************************************************
+localhost                  : ok=6    changed=5    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+

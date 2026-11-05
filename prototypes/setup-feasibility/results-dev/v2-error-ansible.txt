@@ -1,0 +1,2 @@
+exit_code=2
+went_on_after_error=no

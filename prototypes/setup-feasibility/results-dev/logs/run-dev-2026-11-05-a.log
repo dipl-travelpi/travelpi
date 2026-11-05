@@ -1,0 +1,163 @@
+--- 2026-11-05T13:25:05+00:00
+/root/setup-feasibility/env-info.sh: line 9: /sys/firmware/devicetree/base/model: No such file or directory
+model: 
+PRETTY_NAME="Debian GNU/Linux 13 (trixie)"
+VERSION_CODENAME=trixie
+kernel: 7.2.14-arch1-1 (x86_64)
+MemTotal:       16137256 kB
+python: Python 3.13.5
+cryptography: 43.0.0
+openssl: OpenSSL 3.5.7 9 Jun 2026 (Library: OpenSSL 3.5.7 9 Jun 2026)
+age: 1.2.1
+ansible: ansible [core 2.19.11]
+Created symlink '/etc/systemd/system/multi-user.target.wants/travelpi-test.service' → '/etc/systemd/system/travelpi-test.service'.
+changes in the second run: 0
+run  1:   0.146 s    12.0 MB  exit 0
+run  2:   0.129 s    12.4 MB  exit 0
+run  3:   0.127 s    12.4 MB  exit 0
+run  4:   0.118 s    12.4 MB  exit 0
+run  5:   0.121 s    12.4 MB  exit 0
+run  6:   0.123 s    12.4 MB  exit 0
+run  7:   0.124 s    12.4 MB  exit 0
+run  8:   0.116 s    12.4 MB  exit 0
+run  9:   0.122 s    12.4 MB  exit 0
+run 10:   0.125 s    12.4 MB  exit 0
+run 11:   0.124 s    12.4 MB  exit 0
+run 12:   0.129 s    12.4 MB  exit 0
+run 13:   0.123 s    12.4 MB  exit 0
+run 14:   0.119 s    12.4 MB  exit 0
+run 15:   0.126 s    12.4 MB  exit 0
+run 16:   0.119 s    12.4 MB  exit 0
+exit_code=1
+went_on_after_error=no
+changes in the second run: 0
+run  1:   0.105 s    12.0 MB  exit 0
+run  2:   0.100 s    12.4 MB  exit 0
+run  3:   0.099 s    12.4 MB  exit 0
+run  4:   0.101 s    12.4 MB  exit 0
+run  5:   0.105 s    12.4 MB  exit 0
+run  6:   0.099 s    12.4 MB  exit 0
+run  7:   0.101 s    12.4 MB  exit 0
+run  8:   0.103 s    12.4 MB  exit 0
+run  9:   0.111 s    12.4 MB  exit 0
+run 10:   0.101 s    12.4 MB  exit 0
+run 11:   0.099 s    12.4 MB  exit 0
+run 12:   0.098 s    12.4 MB  exit 0
+run 13:   0.100 s    12.4 MB  exit 0
+run 14:   0.101 s    12.4 MB  exit 0
+run 15:   0.093 s    12.4 MB  exit 0
+run 16:   0.101 s    12.4 MB  exit 0
+exit_code=100
+went_on_after_error=no
+[WARNING]: Host 'localhost' is using the discovered Python interpreter at '/usr/bin/python3.13', but future installation of another Python interpreter could cause a different interpreter to be discovered. See https://docs.ansible.com/ansible-core/2.19/reference_appendices/interpreter_discovery.html for more information.
+[WARNING]: Host 'localhost' is using the discovered Python interpreter at '/usr/bin/python3.13', but future installation of another Python interpreter could cause a different interpreter to be discovered. See https://docs.ansible.com/ansible-core/2.19/reference_appendices/interpreter_discovery.html for more information.
+changes in the second run: 0
+[WARNING]: Host 'localhost' is using the discovered Python interpreter at '/usr/bin/python3.13', but future installation of another Python interpreter could cause a different interpreter to be discovered. See https://docs.ansible.com/ansible-core/2.19/reference_appendices/interpreter_discovery.html for more information.
+run  1:   4.509 s   101.6 MB  exit 0
+[WARNING]: Host 'localhost' is using the discovered Python interpreter at '/usr/bin/python3.13', but future installation of another Python interpreter could cause a different interpreter to be discovered. See https://docs.ansible.com/ansible-core/2.19/reference_appendices/interpreter_discovery.html for more information.
+run  2:   4.442 s   101.5 MB  exit 0
+[WARNING]: Host 'localhost' is using the discovered Python interpreter at '/usr/bin/python3.13', but future installation of another Python interpreter could cause a different interpreter to be discovered. See https://docs.ansible.com/ansible-core/2.19/reference_appendices/interpreter_discovery.html for more information.
+run  3:   4.437 s   101.3 MB  exit 0
+[WARNING]: Host 'localhost' is using the discovered Python interpreter at '/usr/bin/python3.13', but future installation of another Python interpreter could cause a different interpreter to be discovered. See https://docs.ansible.com/ansible-core/2.19/reference_appendices/interpreter_discovery.html for more information.
+run  4:   4.485 s   101.4 MB  exit 0
+[WARNING]: Host 'localhost' is using the discovered Python interpreter at '/usr/bin/python3.13', but future installation of another Python interpreter could cause a different interpreter to be discovered. See https://docs.ansible.com/ansible-core/2.19/reference_appendices/interpreter_discovery.html for more information.
+run  5:   4.364 s   101.4 MB  exit 0
+[WARNING]: Host 'localhost' is using the discovered Python interpreter at '/usr/bin/python3.13', but future installation of another Python interpreter could cause a different interpreter to be discovered. See https://docs.ansible.com/ansible-core/2.19/reference_appendices/interpreter_discovery.html for more information.
+run  6:   4.384 s   101.5 MB  exit 0
+[WARNING]: Host 'localhost' is using the discovered Python interpreter at '/usr/bin/python3.13', but future installation of another Python interpreter could cause a different interpreter to be discovered. See https://docs.ansible.com/ansible-core/2.19/reference_appendices/interpreter_discovery.html for more information.
+run  7:   4.418 s   101.5 MB  exit 0
+[WARNING]: Host 'localhost' is using the discovered Python interpreter at '/usr/bin/python3.13', but future installation of another Python interpreter could cause a different interpreter to be discovered. See https://docs.ansible.com/ansible-core/2.19/reference_appendices/interpreter_discovery.html for more information.
+run  8:   4.328 s   101.5 MB  exit 0
+[WARNING]: Host 'localhost' is using the discovered Python interpreter at '/usr/bin/python3.13', but future installation of another Python interpreter could cause a different interpreter to be discovered. See https://docs.ansible.com/ansible-core/2.19/reference_appendices/interpreter_discovery.html for more information.
+run  9:   4.378 s   101.3 MB  exit 0
+[WARNING]: Host 'localhost' is using the discovered Python interpreter at '/usr/bin/python3.13', but future installation of another Python interpreter could cause a different interpreter to be discovered. See https://docs.ansible.com/ansible-core/2.19/reference_appendices/interpreter_discovery.html for more information.
+run 10:   4.315 s   101.6 MB  exit 0
+[WARNING]: Host 'localhost' is using the discovered Python interpreter at '/usr/bin/python3.13', but future installation of another Python interpreter could cause a different interpreter to be discovered. See https://docs.ansible.com/ansible-core/2.19/reference_appendices/interpreter_discovery.html for more information.
+run 11:   4.321 s   101.8 MB  exit 0
+[WARNING]: Host 'localhost' is using the discovered Python interpreter at '/usr/bin/python3.13', but future installation of another Python interpreter could cause a different interpreter to be discovered. See https://docs.ansible.com/ansible-core/2.19/reference_appendices/interpreter_discovery.html for more information.
+run 12:   4.343 s   101.4 MB  exit 0
+[WARNING]: Host 'localhost' is using the discovered Python interpreter at '/usr/bin/python3.13', but future installation of another Python interpreter could cause a different interpreter to be discovered. See https://docs.ansible.com/ansible-core/2.19/reference_appendices/interpreter_discovery.html for more information.
+run 13:   4.333 s   101.3 MB  exit 0
+[WARNING]: Host 'localhost' is using the discovered Python interpreter at '/usr/bin/python3.13', but future installation of another Python interpreter could cause a different interpreter to be discovered. See https://docs.ansible.com/ansible-core/2.19/reference_appendices/interpreter_discovery.html for more information.
+run 14:   4.343 s   101.4 MB  exit 0
+[WARNING]: Host 'localhost' is using the discovered Python interpreter at '/usr/bin/python3.13', but future installation of another Python interpreter could cause a different interpreter to be discovered. See https://docs.ansible.com/ansible-core/2.19/reference_appendices/interpreter_discovery.html for more information.
+run 15:   4.351 s   101.5 MB  exit 0
+[WARNING]: Host 'localhost' is using the discovered Python interpreter at '/usr/bin/python3.13', but future installation of another Python interpreter could cause a different interpreter to be discovered. See https://docs.ansible.com/ansible-core/2.19/reference_appendices/interpreter_discovery.html for more information.
+run 16:   4.379 s   101.6 MB  exit 0
+exit_code=2
+went_on_after_error=no
+phase2 exit 2
+run  1:   0.107 s    14.7 MB  exit 0
+run  2:   0.045 s    14.7 MB  exit 0
+run  3:   0.046 s    14.7 MB  exit 0
+run  4:   0.045 s    14.8 MB  exit 0
+run  5:   0.046 s    14.8 MB  exit 0
+run  6:   0.045 s    14.7 MB  exit 0
+run  7:   0.044 s    14.7 MB  exit 0
+run  8:   0.045 s    14.7 MB  exit 0
+run  9:   0.045 s    14.5 MB  exit 0
+run 10:   0.043 s    14.8 MB  exit 0
+run 11:   0.046 s    14.7 MB  exit 0
+run 12:   0.044 s    14.7 MB  exit 0
+run 13:   0.045 s    14.6 MB  exit 0
+run 14:   0.043 s    14.7 MB  exit 0
+run 15:   0.045 s    14.7 MB  exit 0
+run 16:   0.045 s    14.8 MB  exit 0
+run  1:   0.028 s    12.0 MB  exit 0
+run  2:   0.006 s    12.4 MB  exit 0
+run  3:   0.006 s    12.4 MB  exit 0
+run  4:   0.006 s    12.4 MB  exit 0
+run  5:   0.007 s    12.4 MB  exit 0
+run  6:   0.006 s    12.4 MB  exit 0
+run  7:   0.007 s    12.4 MB  exit 0
+run  8:   0.006 s    12.4 MB  exit 0
+run  9:   0.006 s    12.4 MB  exit 0
+run 10:   0.007 s    12.4 MB  exit 0
+run 11:   0.006 s    12.4 MB  exit 0
+run 12:   0.007 s    12.4 MB  exit 0
+run 13:   0.006 s    12.4 MB  exit 0
+run 14:   0.006 s    12.4 MB  exit 0
+run 15:   0.007 s    12.4 MB  exit 0
+run 16:   0.007 s    12.4 MB  exit 0
+[WARNING]: No inventory was parsed, only implicit localhost is available
+run  1:   0.990 s    52.2 MB  exit 0
+[WARNING]: No inventory was parsed, only implicit localhost is available
+run  2:   0.971 s    52.3 MB  exit 0
+[WARNING]: No inventory was parsed, only implicit localhost is available
+run  3:   0.999 s    52.2 MB  exit 0
+[WARNING]: No inventory was parsed, only implicit localhost is available
+run  4:   0.978 s    52.3 MB  exit 0
+[WARNING]: No inventory was parsed, only implicit localhost is available
+run  5:   0.979 s    52.2 MB  exit 0
+[WARNING]: No inventory was parsed, only implicit localhost is available
+run  6:   0.967 s    52.1 MB  exit 0
+[WARNING]: No inventory was parsed, only implicit localhost is available
+run  7:   0.978 s    52.3 MB  exit 0
+[WARNING]: No inventory was parsed, only implicit localhost is available
+run  8:   0.993 s    52.2 MB  exit 0
+[WARNING]: No inventory was parsed, only implicit localhost is available
+run  9:   0.972 s    52.2 MB  exit 0
+[WARNING]: No inventory was parsed, only implicit localhost is available
+run 10:   0.980 s    52.3 MB  exit 0
+[WARNING]: No inventory was parsed, only implicit localhost is available
+run 11:   0.964 s    52.1 MB  exit 0
+[WARNING]: No inventory was parsed, only implicit localhost is available
+run 12:   0.973 s    52.0 MB  exit 0
+[WARNING]: No inventory was parsed, only implicit localhost is available
+run 13:   0.985 s    52.0 MB  exit 0
+[WARNING]: No inventory was parsed, only implicit localhost is available
+run 14:   1.035 s    52.1 MB  exit 0
+[WARNING]: No inventory was parsed, only implicit localhost is available
+run 15:   0.974 s    52.5 MB  exit 0
+[WARNING]: No inventory was parsed, only implicit localhost is available
+run 16:   0.983 s    52.4 MB  exit 0
+feature            python     shell   ansible
+model                  no        no        no
+memory                yes       yes       yes
+cpu_cores              no        no        no
+wifi_internal          no        no        no
+bluetooth             yes       yes        no
+wifi_usb               no        no        no
+detected              2/6       2/6       1/6
+results in results-dev/
+v1 exit 0

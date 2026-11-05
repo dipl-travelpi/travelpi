@@ -1,0 +1,255 @@
+--- 2026-11-05T13:29:17+00:00
+/root/setup-feasibility/env-info.sh: line 9: /sys/firmware/devicetree/base/model: No such file or directory
+model: 
+PRETTY_NAME="Debian GNU/Linux 13 (trixie)"
+VERSION_CODENAME=trixie
+kernel: 7.2.14-arch1-1 (x86_64)
+MemTotal:       16137256 kB
+python: Python 3.13.5
+cryptography: 43.0.0
+openssl: OpenSSL 3.5.7 9 Jun 2026 (Library: OpenSSL 3.5.7 9 Jun 2026)
+age: 1.2.1
+ansible: ansible [core 2.19.11]
+Created symlink '/etc/systemd/system/multi-user.target.wants/travelpi-test.service' → '/etc/systemd/system/travelpi-test.service'.
+changes in the second run: 0
+run  1:   0.124 s    12.0 MB  exit 0
+run  2:   0.116 s    12.3 MB  exit 0
+run  3:   0.125 s    12.3 MB  exit 0
+run  4:   0.114 s    12.3 MB  exit 0
+run  5:   0.123 s    12.3 MB  exit 0
+run  6:   0.125 s    12.3 MB  exit 0
+run  7:   0.119 s    12.3 MB  exit 0
+run  8:   0.122 s    12.3 MB  exit 0
+run  9:   0.122 s    12.3 MB  exit 0
+run 10:   0.120 s    12.3 MB  exit 0
+run 11:   0.122 s    12.3 MB  exit 0
+run 12:   0.114 s    12.3 MB  exit 0
+run 13:   0.124 s    12.3 MB  exit 0
+run 14:   0.118 s    12.3 MB  exit 0
+run 15:   0.117 s    12.3 MB  exit 0
+run 16:   0.122 s    12.3 MB  exit 0
+exit_code=1
+went_on_after_error=no
+changes in the second run: 0
+run  1:   0.099 s    12.0 MB  exit 0
+run  2:   0.095 s    12.4 MB  exit 0
+run  3:   0.098 s    12.4 MB  exit 0
+run  4:   0.098 s    12.4 MB  exit 0
+run  5:   0.096 s    12.4 MB  exit 0
+run  6:   0.100 s    12.4 MB  exit 0
+run  7:   0.111 s    12.4 MB  exit 0
+run  8:   0.102 s    12.4 MB  exit 0
+run  9:   0.106 s    12.4 MB  exit 0
+run 10:   0.093 s    12.4 MB  exit 0
+run 11:   0.095 s    12.4 MB  exit 0
+run 12:   0.097 s    12.4 MB  exit 0
+run 13:   0.093 s    12.4 MB  exit 0
+run 14:   0.094 s    12.4 MB  exit 0
+run 15:   0.098 s    12.4 MB  exit 0
+run 16:   0.098 s    12.4 MB  exit 0
+exit_code=100
+went_on_after_error=no
+[WARNING]: Host 'localhost' is using the discovered Python interpreter at '/usr/bin/python3.13', but future installation of another Python interpreter could cause a different interpreter to be discovered. See https://docs.ansible.com/ansible-core/2.19/reference_appendices/interpreter_discovery.html for more information.
+[WARNING]: Host 'localhost' is using the discovered Python interpreter at '/usr/bin/python3.13', but future installation of another Python interpreter could cause a different interpreter to be discovered. See https://docs.ansible.com/ansible-core/2.19/reference_appendices/interpreter_discovery.html for more information.
+changes in the second run: 0
+[WARNING]: Host 'localhost' is using the discovered Python interpreter at '/usr/bin/python3.13', but future installation of another Python interpreter could cause a different interpreter to be discovered. See https://docs.ansible.com/ansible-core/2.19/reference_appendices/interpreter_discovery.html for more information.
+run  1:   4.333 s   101.5 MB  exit 0
+[WARNING]: Host 'localhost' is using the discovered Python interpreter at '/usr/bin/python3.13', but future installation of another Python interpreter could cause a different interpreter to be discovered. See https://docs.ansible.com/ansible-core/2.19/reference_appendices/interpreter_discovery.html for more information.
+run  2:   4.391 s   101.3 MB  exit 0
+[WARNING]: Host 'localhost' is using the discovered Python interpreter at '/usr/bin/python3.13', but future installation of another Python interpreter could cause a different interpreter to be discovered. See https://docs.ansible.com/ansible-core/2.19/reference_appendices/interpreter_discovery.html for more information.
+run  3:   4.417 s   101.3 MB  exit 0
+[WARNING]: Host 'localhost' is using the discovered Python interpreter at '/usr/bin/python3.13', but future installation of another Python interpreter could cause a different interpreter to be discovered. See https://docs.ansible.com/ansible-core/2.19/reference_appendices/interpreter_discovery.html for more information.
+run  4:   4.357 s   101.3 MB  exit 0
+[WARNING]: Host 'localhost' is using the discovered Python interpreter at '/usr/bin/python3.13', but future installation of another Python interpreter could cause a different interpreter to be discovered. See https://docs.ansible.com/ansible-core/2.19/reference_appendices/interpreter_discovery.html for more information.
+run  5:   4.342 s   101.6 MB  exit 0
+[WARNING]: Host 'localhost' is using the discovered Python interpreter at '/usr/bin/python3.13', but future installation of another Python interpreter could cause a different interpreter to be discovered. See https://docs.ansible.com/ansible-core/2.19/reference_appendices/interpreter_discovery.html for more information.
+run  6:   4.358 s   101.3 MB  exit 0
+[WARNING]: Host 'localhost' is using the discovered Python interpreter at '/usr/bin/python3.13', but future installation of another Python interpreter could cause a different interpreter to be discovered. See https://docs.ansible.com/ansible-core/2.19/reference_appendices/interpreter_discovery.html for more information.
+run  7:   4.345 s   101.3 MB  exit 0
+[WARNING]: Host 'localhost' is using the discovered Python interpreter at '/usr/bin/python3.13', but future installation of another Python interpreter could cause a different interpreter to be discovered. See https://docs.ansible.com/ansible-core/2.19/reference_appendices/interpreter_discovery.html for more information.
+run  8:   4.324 s   101.6 MB  exit 0
+[WARNING]: Host 'localhost' is using the discovered Python interpreter at '/usr/bin/python3.13', but future installation of another Python interpreter could cause a different interpreter to be discovered. See https://docs.ansible.com/ansible-core/2.19/reference_appendices/interpreter_discovery.html for more information.
+run  9:   4.321 s   101.2 MB  exit 0
+[WARNING]: Host 'localhost' is using the discovered Python interpreter at '/usr/bin/python3.13', but future installation of another Python interpreter could cause a different interpreter to be discovered. See https://docs.ansible.com/ansible-core/2.19/reference_appendices/interpreter_discovery.html for more information.
+run 10:   4.335 s   101.1 MB  exit 0
+[WARNING]: Host 'localhost' is using the discovered Python interpreter at '/usr/bin/python3.13', but future installation of another Python interpreter could cause a different interpreter to be discovered. See https://docs.ansible.com/ansible-core/2.19/reference_appendices/interpreter_discovery.html for more information.
+run 11:   4.332 s   101.6 MB  exit 0
+[WARNING]: Host 'localhost' is using the discovered Python interpreter at '/usr/bin/python3.13', but future installation of another Python interpreter could cause a different interpreter to be discovered. See https://docs.ansible.com/ansible-core/2.19/reference_appendices/interpreter_discovery.html for more information.
+run 12:   4.297 s   101.6 MB  exit 0
+[WARNING]: Host 'localhost' is using the discovered Python interpreter at '/usr/bin/python3.13', but future installation of another Python interpreter could cause a different interpreter to be discovered. See https://docs.ansible.com/ansible-core/2.19/reference_appendices/interpreter_discovery.html for more information.
+run 13:   4.363 s   101.2 MB  exit 0
+[WARNING]: Host 'localhost' is using the discovered Python interpreter at '/usr/bin/python3.13', but future installation of another Python interpreter could cause a different interpreter to be discovered. See https://docs.ansible.com/ansible-core/2.19/reference_appendices/interpreter_discovery.html for more information.
+run 14:   4.365 s   101.8 MB  exit 0
+[WARNING]: Host 'localhost' is using the discovered Python interpreter at '/usr/bin/python3.13', but future installation of another Python interpreter could cause a different interpreter to be discovered. See https://docs.ansible.com/ansible-core/2.19/reference_appendices/interpreter_discovery.html for more information.
+run 15:   5.333 s   101.6 MB  exit 0
+[WARNING]: Host 'localhost' is using the discovered Python interpreter at '/usr/bin/python3.13', but future installation of another Python interpreter could cause a different interpreter to be discovered. See https://docs.ansible.com/ansible-core/2.19/reference_appendices/interpreter_discovery.html for more information.
+run 16:   5.345 s   101.4 MB  exit 0
+exit_code=2
+went_on_after_error=no
+test backup: 4959 bytes
+run  1:   0.017 s    11.8 MB  exit 0
+run  2:   0.017 s    12.1 MB  exit 0
+run  3:   0.017 s    12.1 MB  exit 0
+run  4:   0.017 s    12.1 MB  exit 0
+run  5:   0.017 s    12.1 MB  exit 0
+run  6:   0.016 s    12.1 MB  exit 0
+run  7:   0.017 s    12.1 MB  exit 0
+run  8:   0.016 s    12.1 MB  exit 0
+run  9:   0.018 s    12.1 MB  exit 0
+run 10:   0.017 s    12.1 MB  exit 0
+run 11:   0.017 s    12.1 MB  exit 0
+run 12:   0.017 s    12.1 MB  exit 0
+run 13:   0.017 s    12.1 MB  exit 0
+run 14:   0.016 s    12.1 MB  exit 0
+run 15:   0.016 s    12.1 MB  exit 0
+run 16:   0.016 s    12.1 MB  exit 0
+run  1:   0.083 s    36.2 MB  exit 0
+run  2:   0.072 s    36.0 MB  exit 0
+run  3:   0.074 s    36.0 MB  exit 0
+run  4:   0.073 s    35.8 MB  exit 0
+run  5:   0.075 s    36.0 MB  exit 0
+run  6:   0.073 s    36.1 MB  exit 0
+run  7:   0.072 s    36.1 MB  exit 0
+run  8:   0.072 s    36.0 MB  exit 0
+run  9:   0.073 s    36.3 MB  exit 0
+run 10:   0.072 s    35.8 MB  exit 0
+run 11:   0.073 s    36.1 MB  exit 0
+run 12:   0.073 s    35.9 MB  exit 0
+run 13:   0.072 s    36.0 MB  exit 0
+run 14:   0.073 s    36.1 MB  exit 0
+run 15:   0.073 s    36.0 MB  exit 0
+run 16:   0.080 s    36.1 MB  exit 0
+run  1:   0.080 s    36.1 MB  exit 0
+run  2:   0.072 s    35.9 MB  exit 0
+run  3:   0.073 s    36.0 MB  exit 0
+run  4:   0.072 s    36.0 MB  exit 0
+run  5:   0.073 s    36.1 MB  exit 0
+run  6:   0.072 s    35.8 MB  exit 0
+run  7:   0.073 s    35.9 MB  exit 0
+run  8:   0.073 s    36.1 MB  exit 0
+run  9:   0.072 s    35.9 MB  exit 0
+run 10:   0.072 s    36.1 MB  exit 0
+run 11:   0.073 s    36.1 MB  exit 0
+run 12:   0.072 s    36.0 MB  exit 0
+run 13:   0.072 s    36.1 MB  exit 0
+run 14:   0.072 s    36.1 MB  exit 0
+run 15:   0.073 s    36.0 MB  exit 0
+run 16:   0.074 s    36.1 MB  exit 0
+== fernet
+round trip: output identical to the original
+one byte modified: exit code 1, no output
+wrong password: exit code 1, no output
+without terminal: exit code 0, encrypted file written
+run  1:   0.014 s    11.9 MB  exit 0
+run  2:   0.014 s    12.3 MB  exit 0
+run  3:   0.014 s    12.3 MB  exit 0
+run  4:   0.014 s    12.3 MB  exit 0
+run  5:   0.014 s    12.3 MB  exit 0
+run  6:   0.014 s    12.3 MB  exit 0
+run  7:   0.014 s    12.3 MB  exit 0
+run  8:   0.014 s    12.3 MB  exit 0
+run  9:   0.014 s    12.3 MB  exit 0
+run 10:   0.014 s    12.3 MB  exit 0
+run 11:   0.014 s    12.3 MB  exit 0
+run 12:   0.014 s    12.3 MB  exit 0
+run 13:   0.014 s    12.3 MB  exit 0
+run 14:   0.014 s    12.3 MB  exit 0
+run 15:   0.014 s    12.3 MB  exit 0
+run 16:   0.014 s    12.3 MB  exit 0
+run  1:   0.014 s    12.0 MB  exit 0
+run  2:   0.014 s    12.4 MB  exit 0
+run  3:   0.014 s    12.4 MB  exit 0
+run  4:   0.014 s    12.4 MB  exit 0
+run  5:   0.014 s    12.4 MB  exit 0
+run  6:   0.014 s    12.4 MB  exit 0
+run  7:   0.014 s    12.4 MB  exit 0
+run  8:   0.014 s    12.4 MB  exit 0
+run  9:   0.014 s    12.4 MB  exit 0
+run 10:   0.014 s    12.4 MB  exit 0
+run 11:   0.014 s    12.4 MB  exit 0
+run 12:   0.014 s    12.4 MB  exit 0
+run 13:   0.014 s    12.4 MB  exit 0
+run 14:   0.014 s    12.4 MB  exit 0
+run 15:   0.014 s    12.4 MB  exit 0
+run 16:   0.014 s    12.4 MB  exit 0
+== openssl
+round trip: output identical to the original
+one byte modified: exit code 0, output written (4959 bytes), differs from the original
+wrong password: exit code 1, output written (4944 bytes), differs from the original
+without terminal: exit code 0, encrypted file written
+run  1:   0.624 s   264.1 MB  exit 0
+run  2:   0.620 s   264.3 MB  exit 0
+run  3:   0.617 s   264.4 MB  exit 0
+run  4:   0.620 s   264.3 MB  exit 0
+run  5:   0.634 s   264.2 MB  exit 0
+run  6:   0.625 s   264.2 MB  exit 0
+run  7:   0.616 s   264.3 MB  exit 0
+run  8:   0.617 s   264.2 MB  exit 0
+run  9:   0.618 s   264.0 MB  exit 0
+run 10:   0.617 s   264.3 MB  exit 0
+run 11:   0.621 s   264.4 MB  exit 0
+run 12:   0.615 s   264.2 MB  exit 0
+run 13:   0.617 s   264.2 MB  exit 0
+run 14:   0.631 s   264.3 MB  exit 0
+run 15:   0.612 s   266.2 MB  exit 0
+run 16:   0.614 s   266.1 MB  exit 0
+run  1:   0.618 s   264.2 MB  exit 0
+run  2:   0.613 s   266.2 MB  exit 0
+run  3:   0.619 s   264.0 MB  exit 0
+run  4:   0.620 s   264.3 MB  exit 0
+run  5:   0.614 s   264.4 MB  exit 0
+run  6:   0.633 s   266.3 MB  exit 0
+run  7:   0.614 s   264.1 MB  exit 0
+run  8:   0.619 s   264.3 MB  exit 0
+run  9:   0.623 s   264.3 MB  exit 0
+run 10:   0.620 s   266.3 MB  exit 0
+run 11:   0.614 s   264.2 MB  exit 0
+run 12:   0.614 s   264.2 MB  exit 0
+run 13:   0.614 s   264.3 MB  exit 0
+run 14:   0.627 s   264.3 MB  exit 0
+run 15:   0.618 s   266.4 MB  exit 0
+run 16:   0.618 s   264.1 MB  exit 0
+== age
+round trip: output identical to the original
+one byte modified: exit code 1, no output
+wrong password: exit code 1, no output
+without terminal: exit code 1, no output
+run  1:   0.295 s    41.5 MB  exit 0
+run  2:   0.306 s    42.0 MB  exit 0
+run  3:   0.298 s    41.5 MB  exit 0
+run  4:   0.296 s    41.6 MB  exit 0
+run  5:   0.290 s    41.8 MB  exit 0
+run  6:   0.292 s    42.0 MB  exit 0
+run  7:   0.293 s    41.7 MB  exit 0
+run  8:   0.311 s    41.9 MB  exit 0
+run  9:   0.295 s    41.8 MB  exit 0
+run 10:   0.294 s    41.6 MB  exit 0
+run 11:   0.294 s    41.8 MB  exit 0
+run 12:   0.289 s    41.8 MB  exit 0
+run 13:   0.300 s    41.7 MB  exit 0
+run 14:   0.293 s    41.4 MB  exit 0
+run 15:   0.295 s    41.4 MB  exit 0
+run 16:   0.295 s    41.9 MB  exit 0
+run  1:   0.300 s    41.8 MB  exit 0
+run  2:   0.291 s    41.4 MB  exit 0
+run  3:   0.295 s    41.4 MB  exit 0
+run  4:   0.291 s    41.4 MB  exit 0
+run  5:   0.295 s    41.8 MB  exit 0
+run  6:   0.294 s    41.8 MB  exit 0
+run  7:   0.295 s    42.0 MB  exit 0
+run  8:   0.293 s    42.1 MB  exit 0
+run  9:   0.314 s    42.0 MB  exit 0
+run 10:   0.294 s    41.8 MB  exit 0
+run 11:   0.290 s    41.9 MB  exit 0
+run 12:   0.300 s    41.6 MB  exit 0
+run 13:   0.292 s    41.4 MB  exit 0
+run 14:   0.294 s    41.4 MB  exit 0
+run 15:   0.296 s    42.1 MB  exit 0
+run 16:   0.311 s    41.3 MB  exit 0
+== vault
+round trip: output identical to the original
+one byte modified: exit code 1, no output
+wrong password: exit code 1, no output
+without terminal: exit code 0, encrypted file written
+results in results-dev/
+phase2 exit 0

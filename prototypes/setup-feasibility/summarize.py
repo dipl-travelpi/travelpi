@@ -1,14 +1,16 @@
 #!/usr/bin/env python3
 """Collects the values for the tables in the thesis from results/ and writes results/summary.md.
+Another folder can be given as argument, e.g. `python3 summarize.py results-dev`.
 
 Times and memory are medians of runs 2 to 16 (run 1 is a warm-up run), like in the dashboard
 tests. First runs of V2 (one per freshly flashed system) are all used."""
 import csv
 import pathlib
 import statistics
+import sys
 
 HERE = pathlib.Path(__file__).parent
-RESULTS = HERE / "results"
+RESULTS = pathlib.Path(sys.argv[1]) if len(sys.argv) > 1 else HERE / "results"
 
 
 def runs(name, skip_first=True):

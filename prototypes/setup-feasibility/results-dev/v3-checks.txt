@@ -1,0 +1,20 @@
+== fernet
+round trip: output identical to the original
+one byte modified: exit code 1, no output
+wrong password: exit code 1, no output
+without terminal: exit code 0, encrypted file written
+== openssl
+round trip: output identical to the original
+one byte modified: exit code 0, output written (4959 bytes), differs from the original
+wrong password: exit code 1, output written (4944 bytes), differs from the original
+without terminal: exit code 0, encrypted file written
+== age
+round trip: output identical to the original
+one byte modified: exit code 1, no output
+wrong password: exit code 1, no output
+without terminal: exit code 1, no output
+== vault
+round trip: output identical to the original
+one byte modified: exit code 1, no output
+wrong password: exit code 1, no output
+without terminal: exit code 0, encrypted file written

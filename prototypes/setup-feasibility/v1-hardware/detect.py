@@ -17,7 +17,9 @@ MEMORY_MB = {0: 256, 1: 512, 2: 1024, 3: 2048, 4: 4096, 5: 8192, 6: 16384}
 
 def board():
     with open("/proc/cpuinfo") as f:
-        revision = next(int(line.split(":")[1], 16) for line in f if line.startswith("Revision"))
+        revision = next((int(line.split(":")[1], 16) for line in f if line.startswith("Revision")), None)
+    if revision is None:    # not a Raspberry Pi (e.g. the development container)
+        return {"revision": None, "model": "unknown"}
     if not revision & (1 << 23):
         return {"revision": f"{revision:x}", "model": "old-style revision code"}
     return {

@@ -1,0 +1,11 @@
+{
+  "revision": null,
+  "model": "unknown",
+  "memory_total_mb": 15759,
+  "cpu_cores": 8,
+  "wifi_internal": [],
+  "wifi_usb": [],
+  "bluetooth": [
+    "hci0"
+  ]
+}

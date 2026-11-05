@@ -23,7 +23,7 @@ case $mode in
       # Installing Ansible itself is part of the first run, but recorded separately
       used_before=$(df --output=used -B1M / | tail -n 1)
       start=$(date +%s.%N)
-      apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y ansible
+      apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y ansible-core
       end=$(date +%s.%N)
       used_after=$(df --output=used -B1M / | tail -n 1)
       awk -v s="$start" -v e="$end" -v d=$((used_after - used_before)) \
@@ -46,10 +46,11 @@ case $mode in
   error)
     # Without the config file we can see whether the setup went on after the failed step
     rm -f /etc/travelpi/travelpi.conf
+    bad_setup=("${setup[@]}")
     if [[ $variant == ansible ]]; then
-      setup+=(-e bad_package=true)
+      bad_setup+=(-e bad_package=true)
     fi
-    BAD_PACKAGE=1 "${setup[@]}" > "results/v2-error-$variant-output.txt" 2>&1
+    BAD_PACKAGE=1 "${bad_setup[@]}" > "results/v2-error-$variant-output.txt" 2>&1
     code=$?
     if [[ -f /etc/travelpi/travelpi.conf ]]; then went_on=yes; else went_on=no; fi
     printf 'exit_code=%d\nwent_on_after_error=%s\n' "$code" "$went_on" | tee "results/v2-error-$variant.txt"
