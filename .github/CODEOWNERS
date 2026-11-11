@@ -1,0 +1,21 @@
+# The owner of a folder is asked to look at pull requests that change it.
+# Later rules take precedence over earlier ones.
+
+/api/                              @bgyemant
+/dashboard/                        @bgyemant
+/daemon/                           @bgyemant
+
+/daemon/src/modules/ap/            @llatikaynen-tgm
+/daemon/src/modules/portal/        @llatikaynen-tgm
+/daemon/src/modules/segmentation/  @llatikaynen-tgm
+/daemon/src/modules/hardware/      @llatikaynen-tgm
+/daemon/src/modules/config/        @llatikaynen-tgm
+/daemon/src/modules/backup/        @llatikaynen-tgm
+/setup/                            @llatikaynen-tgm
+
+/daemon/src/modules/uplink/        @skitzer-tgm
+/daemon/src/modules/tunnel/        @skitzer-tgm
+/daemon/src/modules/firewall/      @skitzer-tgm
+/daemon/src/modules/failover/      @skitzer-tgm
+/daemon/src/modules/adblock/       @skitzer-tgm
+/tests/acceptance/                 @skitzer-tgm

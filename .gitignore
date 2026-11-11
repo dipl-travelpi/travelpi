@@ -1,0 +1,19 @@
+# Rust
+target/
+
+# Node.js
+node_modules/
+.svelte-kit/
+
+# Secrets
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+
+# OS and editors
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
