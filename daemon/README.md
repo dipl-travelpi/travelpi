@@ -1,14 +1,52 @@
 # Daemon
 
 `travelpid` is the system daemon of TravelPi, written in Rust. It runs with system privileges and
-is the only component that configures the network, the tunnel and the firewall. `travelpi` is its
-command-line client.
+is the only component that configures the network, the tunnel and the firewall. It offers the
+HTTP API described in [`api/openapi.yaml`](../api/openapi.yaml) on a Unix socket. `travelpi`
+will be its command-line client.
 
-## Planned layout
+## Run it on a laptop
+
+```sh
+cd daemon
+cargo run -- --simulate
+```
+
+`--simulate` reports made-up values for every section, so nothing touches the system. The socket
+is `./travelpid.sock`; `--socket <path>` sets another one. On the device the default is
+`/run/travelpid/api.sock`.
+
+In a second terminal:
+
+```sh
+curl --unix-socket travelpid.sock http://localhost/v0/status
+curl -N --unix-socket travelpid.sock http://localhost/v0/events
+```
+
+The event stream first sends the current state of every section, then the changed section on
+every change, and a `: keep-alive` comment every 30 seconds.
+
+## Checks
+
+```sh
+cargo fmt --check
+cargo clippy --all-targets -- -D warnings
+cargo test
+```
+
+The tests also read `api/openapi.yaml` and check that the examples there and the `required`
+fields fit the Rust types, so code and contract cannot drift apart unnoticed.
+
+## Layout
 
 | Path | Content |
 |---|---|
-| `src/core/` | API server, event stream, socket permissions, simulation mode |
+| `src/main.rs` | Command-line options, starts the modules and the server |
+| `src/core/status.rs` | The sections of the API as Rust types |
+| `src/core/reporter.rs` | How a module reports its section |
+| `src/core/api.rs` | HTTP routes: `/v0/status`, `/v0/events`, error responses |
+| `src/core/server.rs` | Unix socket: permissions, stale socket, stop signal |
+| `src/core/simulation.rs` | Simulation mode, also the example of a module |
 | `src/modules/ap/` | Own Wi-Fi: access point, DHCP, DNS |
 | `src/modules/portal/` | Captive portal detection and login mode |
 | `src/modules/segmentation/` | Zones for devices |
@@ -21,4 +59,48 @@ command-line client.
 | `src/modules/failover/` | Switching between internet sources |
 | `src/modules/adblock/` | DNS blocklist |
 
-Each module lives in its own folder.
+Each module lives in its own folder. The `modules/` folders are created by their owners.
+
+## Adding a module
+
+A module is an async function that gets a `Reporter` for its section and calls `set` with the
+**whole** section whenever something changes. `src/core/simulation.rs` shows two complete
+examples.
+
+```rust
+// src/modules/ap/mod.rs
+use crate::core::reporter::Reporter;
+use crate::core::status::ApStatus;
+
+pub async fn run(reporter: Reporter<ApStatus>) {
+    loop {
+        let status = ApStatus { /* every field */ };
+        reporter.set(status);
+        // wait until something changes ...
+    }
+}
+```
+
+Then declare it in `src/modules/mod.rs` (`pub mod ap;`, the first module also adds `mod modules;`
+to `src/main.rs`) and start it in `src/main.rs`, in the branch without `--simulate`:
+
+```rust
+spawn_module(ap_reporter, modules::ap::run);
+```
+
+What the core does for you:
+
+- it keeps the latest value for `GET /v0/status`
+- it sends an event to every client of `/v0/events`, and nothing if the value did not change
+- before the first `set`, the section shows its initial state (`running: false` or
+  `state: unavailable`, everything else `null`)
+- if `run` ends or panics, it logs it and sets `error` to `module stopped`
+
+What the module does:
+
+- it never ends on an error; it reports the error in `error` (own short text, never raw output
+  of a tool) and tries again
+- it never puts secrets into its section
+- it limits frequent changes itself (for `uplink`: signal changes at most every 5 seconds)
+
+A new field or section is added to `api/openapi.yaml` first, then to `src/core/status.rs`.
