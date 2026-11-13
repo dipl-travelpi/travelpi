@@ -23,11 +23,20 @@ info:
     the event stream.
 
     **Conventions.**
-    - Field names are `snake_case`.
+    - Field names and fixed values (such as states) are `snake_case`.
+    - Points in time are strings in RFC 3339 format in UTC, for example
+      `2026-11-13T17:00:00Z`.
     - A field that has no value right now is present and `null`; it is never left out.
     - Clients ignore fields they do not know, so that fields can be added later.
-    - Secrets (Wi-Fi passwords, VPN keys) never appear in any response or event, not even
-      shortened.
+    - Secrets (Wi-Fi passwords, VPN keys) never appear in the status or in events, not even
+      shortened. Later endpoints that must carry secrets (for example the backup) are
+      separate calls and say so.
+    - `error` fields hold the daemon's own short texts in English, never raw output of
+      tools such as hostapd or dnsmasq, because that can contain parts of the
+      configuration.
+    - A section describes a state, not a one-time message. Something that runs out at a
+      certain time gets a field with that point in time (for example `expires_at`); clients
+      count down themselves.
     - Every error response has the body described by the `Error` schema.
 
 servers:
@@ -49,7 +58,16 @@ paths:
       operationId: getStatus
       tags: [status]
       summary: Read the whole state
-      description: Returns the current state of every section at once.
+      description: |
+        Returns the current state of every section at once.
+
+        If a module cannot determine its state, it says so in its own section (`error`);
+        the request as a whole still succeeds. `500` means only that the daemon itself
+        could not answer.
+
+        This path also answers while the boot lock is active (encrypted storage not yet
+        unlocked), so that the dashboard can show the unlock page. Sections that need
+        secrets then show their state instead of values.
       responses:
         '200':
           description: Current state.
@@ -304,4 +322,4 @@ components:
             $ref: '#/components/schemas/Error'
           example:
             code: internal_error
-            message: Could not read the state of the access point
+            message: Internal error
