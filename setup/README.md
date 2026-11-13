@@ -15,7 +15,9 @@ works on the same base. Do not use a newer release until this section is updated
 | File | `2026-10-06-raspios-trixie-arm64-lite.img.xz` |
 | Download | <https://downloads.raspberrypi.com/raspios_lite_arm64/images/raspios_lite_arm64-2026-10-06/2026-10-06-raspios-trixie-arm64-lite.img.xz> |
 | SHA-256 | `483db18a48da399b5b7022ffae9a07bc6d99daab30e593aedac09b69ff422843` |
-| Device | Raspberry Pi 3 Model B, with a USB Wi-Fi adapter for the upstream connection |
+| Device | Raspberry Pi 3 Model B (not 3 B+), microSD card of at least 8 GB |
+| Wi-Fi | onboard Wi-Fi for the own network, a USB Wi-Fi adapter for the upstream connection |
+| Power | a 5.1 V / 2.5 A micro-USB power supply. A computer's USB port is not enough: the device may reboot under load |
 
 Raspberry Pi Imager only offers the latest release in its list, so download the file above and
 use it as a custom image.
@@ -27,7 +29,9 @@ curl -LO https://downloads.raspberrypi.com/raspios_lite_arm64/images/raspios_lit
 echo "483db18a48da399b5b7022ffae9a07bc6d99daab30e593aedac09b69ff422843  2026-10-06-raspios-trixie-arm64-lite.img.xz" | sha256sum -c
 ```
 
-The second command must print `OK`. If it does not, delete the file and download it again.
+On macOS use `shasum -a 256 -c` instead of `sha256sum -c`. On Windows (PowerShell), compare the
+output of `Get-FileHash 2026-10-06-raspios-trixie-arm64-lite.img.xz` with the value above. The
+check must print `OK` (or the same value). If it does not, delete the file and download it again.
 
 ### 2. Flash with Raspberry Pi Imager
 
@@ -38,7 +42,7 @@ Apply these settings when Imager offers to customise the image:
 |---|---|
 | Hostname | `pi` (the name `travelpi` comes with the hostname feature) |
 | Time zone | `Europe/Vienna` |
-| User | `pi`, with a password of your own |
+| User | `pi`, with a password of your own (needed for `sudo`) |
 | SSH | on, public-key authentication only; paste the public keys of everybody who works on this device |
 | Wi-Fi | only for development, see below |
 | Wi-Fi country | `AT` (needed later for the access point) |
@@ -52,8 +56,9 @@ check SSH over it, otherwise access is lost.
 
 ### 3. First boot and check
 
-Insert the card, connect the USB Wi-Fi adapter and power the device on. The first boot takes a
-few minutes. Then, from the computer:
+Insert the card, connect the USB Wi-Fi adapter and the power supply. The first boot takes a few
+minutes. Find the address in the device list of your router, or try `ping pi.local`. Then, from
+the root of this repository:
 
 ```bash
 ssh pi@<address> 'bash -s' < setup/check-base.sh
