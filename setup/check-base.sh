@@ -81,8 +81,9 @@ case "$model" in
 esac
 
 # Power: bit 0 = under-voltage now, bit 16 = under-voltage since boot.
-if throttled=$(vcgencmd get_throttled 2>/dev/null); then
-    value=$((${throttled#throttled=}))
+throttled=$(vcgencmd get_throttled 2>/dev/null || true)
+if [[ "$throttled" =~ ^throttled=(0x[0-9a-fA-F]+)$ ]]; then
+    value=$((BASH_REMATCH[1]))
     if (( value & 0x1 )); then
         fail "under-voltage right now ($throttled); use a 5.1 V / 2.5 A power supply"
     elif (( value & 0x10000 )); then
