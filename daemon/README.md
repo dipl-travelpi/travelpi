@@ -26,6 +26,20 @@ curl -N --unix-socket travelpid.sock http://localhost/v0/events
 The event stream first sends the current state of every section, then the changed section on
 every change, and a `: keep-alive` comment every 30 seconds.
 
+## Build for the Pi
+
+Rust is never compiled on the Pi. Until CI builds it, build in a Debian 13 container, which has
+the same C library as the Pi. Run this in the repository root:
+
+```sh
+docker run --rm -v "$PWD":/src -v travelpi-cargo:/usr/local/cargo/registry -w /src/daemon \
+  rust:1-trixie cargo build --release --target-dir target/pi
+```
+
+On an ARM computer (Apple Silicon) Docker runs ARM containers, so the result is the binary for
+the Pi: `daemon/target/pi/release/travelpid`. On an x86 computer add `--platform linux/arm64`
+(slower, emulated). Copy it with `scp` and start it there, for example with `--simulate`.
+
 ## Checks
 
 ```sh
