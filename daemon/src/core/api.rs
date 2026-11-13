@@ -102,7 +102,7 @@ mod tests {
     async fn status_shows_reported_values() {
         let (app, ap_reporter) = test_router();
         ap_reporter.set(ApStatus {
-            running: true,
+            state: crate::core::status::ApState::Running,
             ..ApStatus::initial()
         });
 
@@ -111,7 +111,7 @@ mod tests {
         assert_eq!(response.status(), StatusCode::OK);
 
         let body = body_json(response).await;
-        assert_eq!(body["ap"]["running"], true);
+        assert_eq!(body["ap"]["state"], "running");
         assert_eq!(body["uplink"]["state"], "unavailable");
     }
 

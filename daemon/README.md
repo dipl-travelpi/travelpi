@@ -106,14 +106,16 @@ What the core does for you:
 
 - it keeps the latest value for `GET /v0/status`
 - it sends an event to every client of `/v0/events`, and nothing if the value did not change
-- before the first `set`, the section shows its initial state (`running: false` or
-  `state: unavailable`, everything else `null`)
-- if `run` ends or panics, it logs it and sets `error` to `module stopped`
+- before the first `set`, the section shows its initial state (`state: unavailable`,
+  everything else `null`), never "running" or "connected"
+- if `run` ends or panics, it logs it, sets `state: failed` and `error: module stopped`, and
+  starts `run` again after a pause (5 s, doubled up to 60 s)
 
 What the module does:
 
 - it never ends on an error; it reports the error in `error` (own short text, never raw output
-  of a tool) and tries again
+  of a tool) and tries again after a pause (5 s, doubled up to 60 s), so that tools are not
+  called in a loop and the log does not fill up
 - it never puts secrets into its section
 - it limits frequent changes itself (for `uplink`: signal changes at most every 5 seconds)
 

@@ -10,13 +10,20 @@ use std::time::Duration;
 use tokio::time::sleep;
 
 use crate::core::reporter::Reporter;
-use crate::core::status::{ApStatus, UplinkState, UplinkStatus};
+use crate::core::status::{ApState, ApStatus, Section, UplinkState, UplinkStatus};
 
-/// Simulated own Wi-Fi: running, with a number of devices that changes every 10 s.
+/// Simulated own Wi-Fi: starts, then runs with a number of devices that changes every 10 s.
 pub async fn ap(reporter: Reporter<ApStatus>) {
+    reporter.set(ApStatus {
+        interface: Some("wlan0".into()),
+        state: ApState::Starting,
+        ..ApStatus::initial()
+    });
+    sleep(Duration::from_secs(2)).await;
+
     let running = ApStatus {
         interface: Some("wlan0".into()),
-        running: true,
+        state: ApState::Running,
         ssid: Some("TravelPi".into()),
         channel: Some(6),
         subnet: Some("10.157.1.0/24".into()),
@@ -32,8 +39,9 @@ pub async fn ap(reporter: Reporter<ApStatus>) {
     }
 }
 
-/// Simulated internet source: connects, stays connected for a while with a changing
-/// signal, loses the network and connects again.
+/// Simulated internet source: goes through all five states. The adapter becomes ready, it
+/// connects, stays connected for a while with a changing signal, loses the network and
+/// connects again.
 pub async fn uplink(reporter: Reporter<UplinkStatus>) {
     let base = UplinkStatus {
         interface: Some("wlan1".into()),
@@ -45,7 +53,14 @@ pub async fn uplink(reporter: Reporter<UplinkStatus>) {
         error: None,
     };
     let ssid = Some("Hotel-Guest".to_string());
+    // Address from the range reserved for documentation (RFC 5737).
     let address = Some(Ipv4Addr::new(192, 0, 2, 15));
+
+    reporter.set(UplinkStatus {
+        interface: Some("wlan1".into()),
+        ..UplinkStatus::initial()
+    });
+    sleep(Duration::from_secs(2)).await;
 
     loop {
         reporter.set(base.clone());

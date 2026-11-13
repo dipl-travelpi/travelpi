@@ -13,7 +13,7 @@ before the code.
 
 | Section | Module | Content |
 |---|---|---|
-| `ap` | own Wi-Fi | interface, running, SSID, channel, subnet, number of devices, error |
+| `ap` | own Wi-Fi | interface, state, SSID, channel, subnet, number of devices, error |
 | `uplink` | internet source | interface, state, SSID, signal, IPv4 address, internet reachable, error |
 
 A section has the same fields in both paths. Fields without a value are `null`, never missing.

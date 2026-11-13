@@ -15,4 +15,5 @@ tracing-subscriber = "0.3.23"
 [dev-dependencies]
 http-body-util = "0.1.5"
 serde_norway = "0.9.42"
+tokio = { version = "1.54.1", features = ["test-util", "macros", "rt-multi-thread"] }
 tower = { version = "0.5.3", features = ["util"] }

@@ -81,7 +81,7 @@ paths:
                   value:
                     ap:
                       interface: wlan0
-                      running: true
+                      state: running
                       ssid: TravelPi
                       channel: 6
                       subnet: 10.157.1.0/24
@@ -100,7 +100,7 @@ paths:
                   value:
                     ap:
                       interface: wlan0
-                      running: true
+                      state: running
                       ssid: TravelPi
                       channel: 6
                       subnet: 10.157.1.0/24
@@ -155,7 +155,7 @@ paths:
                   `UplinkStatus`.
               example: |
                 event: ap
-                data: {"interface":"wlan0","running":true,"ssid":"TravelPi","channel":6,"subnet":"10.157.1.0/24","clients":2,"error":null}
+                data: {"interface":"wlan0","state":"running","ssid":"TravelPi","channel":6,"subnet":"10.157.1.0/24","clients":2,"error":null}
 
                 event: uplink
                 data: {"interface":"wlan1","state":"connecting","ssid":"Hotel-Guest","signal":68,"ipv4":null,"internet":null,"error":null}
@@ -187,7 +187,7 @@ components:
       description: |
         Section `ap`: the own Wi-Fi that devices connect to (access point, DHCP, DNS).
         Provided by the `ap` module.
-      required: [interface, running, ssid, channel, subnet, clients, error]
+      required: [interface, state, ssid, channel, subnet, clients, error]
       properties:
         interface:
           type: [string, 'null']
@@ -195,37 +195,46 @@ components:
             Name of the network interface of the own Wi-Fi. `null` if no suitable adapter
             was found.
           examples: [wlan0]
-        running:
-          type: boolean
-          description: Whether the own Wi-Fi is up and accepts devices.
+        state:
+          type: string
+          description: |
+            State of the own Wi-Fi, built like `uplink.state`:
+
+            - `unavailable`: no adapter, the adapter is not ready, or the module has not
+              reported yet
+            - `starting`: being started
+            - `running`: up and accepting devices
+            - `stopped`: switched off on purpose
+            - `failed`: could not be started or stopped working; `error` says why
+          enum: [unavailable, starting, running, stopped, failed]
         ssid:
           type: [string, 'null']
-          description: Network name of the own Wi-Fi. `null` while it is not running.
+          description: Network name of the own Wi-Fi. `null` while `state` is not `running`.
           examples: [TravelPi]
         channel:
           type: [integer, 'null']
           minimum: 1
-          description: Wi-Fi channel. `null` while it is not running.
+          description: Wi-Fi channel. `null` while `state` is not `running`.
           examples: [6]
         subnet:
           type: [string, 'null']
           description: |
             IPv4 network of the own Wi-Fi in CIDR notation. The Pi has the first address
-            in it. `null` while it is not running.
+            in it. `null` while `state` is not `running`.
           examples: [10.157.1.0/24]
         clients:
           type: [integer, 'null']
           minimum: 0
           description: |
-            Number of devices connected right now. `null` while it is not running. Version
+            Number of devices connected right now. `null` while `state` is not `running`. Version
             0 gives only the number; names and MAC addresses are personal data and are not
             listed.
           examples: [2]
         error:
           type: [string, 'null']
           description: |
-            Short reason, in English, why the own Wi-Fi is not running. `null` when there is
-            no error.
+            Short reason, in English, why the own Wi-Fi failed. Set when `state` is
+            `failed`, otherwise `null`.
           examples: [hostapd is not running]
 
     UplinkStatus:

@@ -9,10 +9,14 @@ use tokio::net::{UnixListener, UnixStream};
 
 /// Permissions of the socket: owner and group may connect, nobody else.
 const SOCKET_MODE: u32 = 0o660;
+/// Permissions of the socket folder if `travelpid` has to create it itself. On the device
+/// systemd creates it (`RuntimeDirectory`, `RuntimeDirectoryMode=0750`).
+const FOLDER_MODE: u32 = 0o750;
 
 /// Serves `app` on the socket at `path` until a stop signal arrives, then removes the
 /// socket file.
 pub async fn serve(app: Router, path: &Path) -> io::Result<()> {
+    create_folder(path)?;
     remove_stale_socket(path).await?;
     let listener = UnixListener::bind(path)?;
     std::fs::set_permissions(path, std::fs::Permissions::from_mode(SOCKET_MODE))?;
@@ -28,6 +32,19 @@ pub async fn serve(app: Router, path: &Path) -> io::Result<()> {
     };
     let _ = std::fs::remove_file(path);
     result
+}
+
+/// Creates the folder of the socket if it is missing, for example when `travelpid` is
+/// started by hand instead of by systemd.
+fn create_folder(path: &Path) -> io::Result<()> {
+    let Some(folder) = path.parent().filter(|f| !f.as_os_str().is_empty()) else {
+        return Ok(());
+    };
+    if folder.exists() {
+        return Ok(());
+    }
+    std::fs::create_dir_all(folder)?;
+    std::fs::set_permissions(folder, std::fs::Permissions::from_mode(FOLDER_MODE))
 }
 
 /// A socket file left over from a crashed run would make `bind` fail. Remove it, but

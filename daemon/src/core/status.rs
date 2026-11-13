@@ -16,18 +16,30 @@ pub trait Section: Clone + PartialEq + Serialize + Send + Sync + 'static {
     /// State shown before the module has reported anything.
     fn initial() -> Self;
 
-    /// State shown after the module task has ended unexpectedly.
+    /// State shown after the module task has ended unexpectedly: `failed` with
+    /// `error` set to [`MODULE_STOPPED`].
     fn stopped(&self) -> Self;
 }
 
 /// Error text used when a module task ends.
 pub const MODULE_STOPPED: &str = "module stopped";
 
+/// State of the own Wi-Fi.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub enum ApState {
+    Unavailable,
+    Starting,
+    Running,
+    Stopped,
+    Failed,
+}
+
 /// Section `ap`: the own Wi-Fi that devices connect to.
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct ApStatus {
     pub interface: Option<String>,
-    pub running: bool,
+    pub state: ApState,
     pub ssid: Option<String>,
     pub channel: Option<u32>,
     pub subnet: Option<String>,
@@ -41,7 +53,7 @@ impl Section for ApStatus {
     fn initial() -> Self {
         ApStatus {
             interface: None,
-            running: false,
+            state: ApState::Unavailable,
             ssid: None,
             channel: None,
             subnet: None,
@@ -53,6 +65,7 @@ impl Section for ApStatus {
     fn stopped(&self) -> Self {
         ApStatus {
             interface: self.interface.clone(),
+            state: ApState::Failed,
             error: Some(MODULE_STOPPED.to_string()),
             ..ApStatus::initial()
         }
@@ -102,6 +115,7 @@ impl Section for UplinkStatus {
     fn stopped(&self) -> Self {
         UplinkStatus {
             interface: self.interface.clone(),
+            state: UplinkState::Failed,
             error: Some(MODULE_STOPPED.to_string()),
             ..UplinkStatus::initial()
         }
@@ -200,7 +214,7 @@ mod tests {
     fn stopped_keeps_interface_and_sets_error() {
         let running = ApStatus {
             interface: Some("wlan0".into()),
-            running: true,
+            state: ApState::Running,
             ssid: Some("TravelPi".into()),
             channel: Some(6),
             subnet: Some("10.157.1.0/24".into()),
@@ -209,7 +223,7 @@ mod tests {
         };
         let stopped = running.stopped();
         assert_eq!(stopped.interface.as_deref(), Some("wlan0"));
-        assert!(!stopped.running);
+        assert_eq!(stopped.state, ApState::Failed);
         assert_eq!(stopped.error.as_deref(), Some(MODULE_STOPPED));
     }
 }
