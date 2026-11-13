@@ -1,0 +1,325 @@
+openapi: 3.1.0
+
+info:
+  title: travelpid API
+  version: 0.1.0
+  summary: HTTP API of the TravelPi daemon
+  description: |
+    `travelpid` is the only privileged component of TravelPi. Its clients, the dashboard
+    backend and the command-line tool `travelpi`, use this API to read the state of the
+    system, to follow changes as an event stream and, in later versions, to send commands.
+
+    **Transport.** The API is plain HTTP/1.1 with JSON bodies on a Unix domain socket,
+    not on a TCP port. Who may connect is controlled by the file permissions of the
+    socket. The socket path is set by the daemon configuration. Example with curl:
+
+        curl --unix-socket <socket path> http://localhost/v0/status
+
+    **Versions.** Every path starts with the major version (`/v0/`). Version 0 may still
+    change while the modules are being built; it covers status and events only.
+
+    **Sections.** The state is split into one section per module: `ap` (own Wi-Fi) and
+    `uplink` (internet source). A section has the same fields in `GET /v0/status` and in
+    the event stream.
+
+    **Conventions.**
+    - Field names and fixed values (such as states) are `snake_case`.
+    - Points in time are strings in RFC 3339 format in UTC, for example
+      `2026-11-13T17:00:00Z`.
+    - A field that has no value right now is present and `null`; it is never left out.
+    - Clients ignore fields they do not know, so that fields can be added later.
+    - Secrets (Wi-Fi passwords, VPN keys) never appear in the status or in events, not even
+      shortened. Later endpoints that must carry secrets (for example the backup) are
+      separate calls and say so.
+    - `error` fields hold the daemon's own short texts in English, never raw output of
+      tools such as hostapd or dnsmasq, because that can contain parts of the
+      configuration.
+    - A section describes a state, not a one-time message. Something that runs out at a
+      certain time gets a field with that point in time (for example `expires_at`); clients
+      count down themselves.
+    - Every error response has the body described by the `Error` schema.
+
+servers:
+  - url: http://localhost
+    description: |
+      Placeholder host. Requests go to the Unix socket of `travelpid`; the host name in
+      the URL is ignored.
+
+# No HTTP authentication: access is controlled by the file permissions of the socket.
+security: []
+
+tags:
+  - name: status
+    description: Reading the state of the system
+
+paths:
+  /v0/status:
+    get:
+      operationId: getStatus
+      tags: [status]
+      summary: Read the whole state
+      description: |
+        Returns the current state of every section at once.
+
+        If a module cannot determine its state, it says so in its own section (`error`);
+        the request as a whole still succeeds. `500` means only that the daemon itself
+        could not answer.
+
+        This path also answers while the boot lock is active (encrypted storage not yet
+        unlocked), so that the dashboard can show the unlock page. Sections that need
+        secrets then show their state instead of values.
+      responses:
+        '200':
+          description: Current state.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+              examples:
+                connected:
+                  summary: Own Wi-Fi running, internet source connected
+                  value:
+                    ap:
+                      interface: wlan0
+                      running: true
+                      ssid: TravelPi
+                      channel: 6
+                      subnet: 10.157.1.0/24
+                      clients: 2
+                      error: null
+                    uplink:
+                      interface: wlan1
+                      state: connected
+                      ssid: Hotel-Guest
+                      signal: 72
+                      ipv4: 192.0.2.15
+                      internet: true
+                      error: null
+                failed:
+                  summary: Own Wi-Fi running, connecting to the internet source failed
+                  value:
+                    ap:
+                      interface: wlan0
+                      running: true
+                      ssid: TravelPi
+                      channel: 6
+                      subnet: 10.157.1.0/24
+                      clients: 1
+                      error: null
+                    uplink:
+                      interface: wlan1
+                      state: failed
+                      ssid: null
+                      signal: null
+                      ipv4: null
+                      internet: false
+                      error: wrong password
+        '500':
+          $ref: '#/components/responses/InternalError'
+        default:
+          $ref: '#/components/responses/UnexpectedError'
+
+  /v0/events:
+    get:
+      operationId: getEvents
+      tags: [status]
+      summary: Follow changes as an event stream
+      description: |
+        A stream of Server-Sent Events (SSE) that stays open. Each event carries one whole
+        section, never single fields:
+
+        - `event` is the name of the section: `ap` or `uplink`.
+        - `data` is the section as JSON, with the same schema as in `GET /v0/status`
+          (`ApStatus` or `UplinkStatus`), on a single line.
+
+        Right after connecting, the daemon sends one event for every section with its
+        current state. A client therefore does not need `GET /v0/status` first, and after a
+        reconnect it is up to date again without `Last-Event-ID`.
+
+        After that, an event is sent whenever a field of a section changes. For `uplink`,
+        changes of `signal` alone are sent at most every 5 seconds.
+
+        When nothing happens, the daemon sends a comment line (`: keep-alive`) at least
+        every 30 seconds, so that clients and proxies notice a broken connection. Clients
+        ignore comment lines and unknown event names.
+      responses:
+        '200':
+          description: The event stream.
+          content:
+            text/event-stream:
+              schema:
+                type: string
+                description: |
+                  Server-Sent Events as defined in the HTML standard. The `data` of an `ap`
+                  event follows `ApStatus`, the `data` of an `uplink` event follows
+                  `UplinkStatus`.
+              example: |
+                event: ap
+                data: {"interface":"wlan0","running":true,"ssid":"TravelPi","channel":6,"subnet":"10.157.1.0/24","clients":2,"error":null}
+
+                event: uplink
+                data: {"interface":"wlan1","state":"connecting","ssid":"Hotel-Guest","signal":68,"ipv4":null,"internet":null,"error":null}
+
+                : keep-alive
+
+                event: uplink
+                data: {"interface":"wlan1","state":"connected","ssid":"Hotel-Guest","signal":70,"ipv4":"192.0.2.15","internet":true,"error":null}
+
+        '500':
+          $ref: '#/components/responses/InternalError'
+        default:
+          $ref: '#/components/responses/UnexpectedError'
+
+components:
+  schemas:
+    Status:
+      type: object
+      description: The state of the whole system, one field per section.
+      required: [ap, uplink]
+      properties:
+        ap:
+          $ref: '#/components/schemas/ApStatus'
+        uplink:
+          $ref: '#/components/schemas/UplinkStatus'
+
+    ApStatus:
+      type: object
+      description: |
+        Section `ap`: the own Wi-Fi that devices connect to (access point, DHCP, DNS).
+        Provided by the `ap` module.
+      required: [interface, running, ssid, channel, subnet, clients, error]
+      properties:
+        interface:
+          type: [string, 'null']
+          description: |
+            Name of the network interface of the own Wi-Fi. `null` if no suitable adapter
+            was found.
+          examples: [wlan0]
+        running:
+          type: boolean
+          description: Whether the own Wi-Fi is up and accepts devices.
+        ssid:
+          type: [string, 'null']
+          description: Network name of the own Wi-Fi. `null` while it is not running.
+          examples: [TravelPi]
+        channel:
+          type: [integer, 'null']
+          minimum: 1
+          description: Wi-Fi channel. `null` while it is not running.
+          examples: [6]
+        subnet:
+          type: [string, 'null']
+          description: |
+            IPv4 network of the own Wi-Fi in CIDR notation. The Pi has the first address
+            in it. `null` while it is not running.
+          examples: [10.157.1.0/24]
+        clients:
+          type: [integer, 'null']
+          minimum: 0
+          description: |
+            Number of devices connected right now. `null` while it is not running. Version
+            0 gives only the number; names and MAC addresses are personal data and are not
+            listed.
+          examples: [2]
+        error:
+          type: [string, 'null']
+          description: |
+            Short reason, in English, why the own Wi-Fi is not running. `null` when there is
+            no error.
+          examples: [hostapd is not running]
+
+    UplinkStatus:
+      type: object
+      description: |
+        Section `uplink`: the connection to the internet source, for example a hotel
+        Wi-Fi joined with the USB adapter. Provided by the `uplink` module.
+      required: [interface, state, ssid, signal, ipv4, internet, error]
+      properties:
+        interface:
+          type: [string, 'null']
+          description: |
+            Name of the network interface used for the internet source. `null` if no
+            suitable adapter was found.
+          examples: [wlan1]
+        state:
+          type: string
+          description: |
+            State of the connection. `travelpid` maps the device states of
+            NetworkManager onto these five:
+
+            - `unavailable`: no adapter, or the adapter is not ready
+            - `disconnected`: adapter ready, not connected
+            - `connecting`: connecting, including authentication and getting an address
+            - `connected`: connected and an IPv4 address assigned
+            - `failed`: the last attempt to connect failed; `error` says why
+          enum: [unavailable, disconnected, connecting, connected, failed]
+        ssid:
+          type: [string, 'null']
+          description: |
+            Network name of the internet source. `null` while not connecting or connected.
+          examples: [Hotel-Guest]
+        signal:
+          type: [integer, 'null']
+          minimum: 0
+          maximum: 100
+          description: |
+            Signal strength in percent, as NetworkManager reports it. `null` while not
+            connecting or connected.
+          examples: [72]
+        ipv4:
+          type: [string, 'null']
+          format: ipv4
+          description: |
+            IPv4 address of the Pi in the network of the internet source, without prefix
+            length. `null` while not connected.
+          examples: [192.0.2.15]
+        internet:
+          type: [boolean, 'null']
+          description: |
+            Result of the connectivity check of NetworkManager for this interface: `true`
+            only with full internet access, `false` otherwise (also behind a captive
+            portal), `null` while the result is unknown, for example before the first
+            check.
+        error:
+          type: [string, 'null']
+          description: |
+            Short reason, in English, why the last attempt failed. Set when `state` is
+            `failed`, otherwise `null`.
+          examples: [wrong password]
+
+    Error:
+      type: object
+      description: Body of every error response.
+      required: [code, message]
+      properties:
+        code:
+          type: string
+          description: |
+            Stable, machine-readable error code in `snake_case`. Clients may branch on it.
+          examples: [not_found]
+        message:
+          type: string
+          description: |
+            Short explanation for people, in English. Clients may show it but must not
+            parse it. It never contains secrets.
+          examples: [No such endpoint]
+
+  responses:
+    UnexpectedError:
+      description: Any other error, for example an unknown path (`404`).
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            code: not_found
+            message: No such endpoint
+    InternalError:
+      description: The daemon could not complete the request.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            code: internal_error
+            message: Internal error
