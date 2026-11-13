@@ -1,0 +1,74 @@
+openapi: 3.1.0
+
+info:
+  title: travelpid API
+  version: 0.1.0
+  summary: HTTP API of the TravelPi daemon
+  description: |
+    `travelpid` is the only privileged component of TravelPi. Its clients, the dashboard
+    backend and the command-line tool `travelpi`, use this API to read the state of the
+    system, to follow changes as an event stream and, in later versions, to send commands.
+
+    **Transport.** The API is plain HTTP/1.1 with JSON bodies on a Unix domain socket,
+    not on a TCP port. Who may connect is controlled by the file permissions of the
+    socket. The socket path is set by the daemon configuration. Example with curl:
+
+        curl --unix-socket <socket path> http://localhost/v0/status
+
+    **Versions.** Every path starts with the major version (`/v0/`). Version 0 may still
+    change while the modules are being built; it covers status and events only.
+
+    **Conventions.**
+    - Field names are `snake_case`.
+    - A field that has no value right now is present and `null`; it is never left out.
+    - Secrets (Wi-Fi passwords, VPN keys) never appear in any response or event, not even
+      shortened.
+    - Every error response has the body described by the `Error` schema.
+
+servers:
+  - url: http://localhost
+    description: |
+      Placeholder host. Requests go to the Unix socket of `travelpid`; the host name in
+      the URL is ignored.
+
+paths: {}
+
+components:
+  schemas:
+    Error:
+      type: object
+      description: Body of every error response.
+      required: [code, message]
+      properties:
+        code:
+          type: string
+          description: |
+            Stable, machine-readable error code in `snake_case`. Clients may branch on it.
+          examples: [not_found]
+        message:
+          type: string
+          description: |
+            Short explanation for people, in English. Clients may show it but must not
+            parse it. It never contains secrets.
+          examples: [No such endpoint]
+      additionalProperties: false
+
+  responses:
+    NotFound:
+      description: The path does not exist.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            code: not_found
+            message: No such endpoint
+    InternalError:
+      description: The daemon could not complete the request.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            code: internal_error
+            message: Could not read the state of the access point
