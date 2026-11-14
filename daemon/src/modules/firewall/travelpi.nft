@@ -1,0 +1,40 @@
+#!/usr/sbin/nft -f
+# TravelPi ruleset, first version (milestone M2): routing and NAT from the own Wi-Fi to the
+# upstream connection. There is no tunnel yet, so traffic leaves directly through the uplink.
+# Load it as a whole file (nft -f), never rule by rule, so a change is applied atomically.
+
+# Interfaces and address range. The names are the ones found on the development Pi;
+# confirm them on the device before relying on them.
+define AP_IF = "wlan0"         # own Wi-Fi (access point, onboard chip)
+define UPLINK_IF = "wlan1"     # upstream Wi-Fi (USB adapter)
+define AP_NET = 10.157.1.0/24  # addresses of the own Wi-Fi
+
+# Create the table if it is missing, then delete it. Loading this file again therefore
+# replaces only our own table and leaves rules of other programs alone.
+table inet travelpi
+delete table inet travelpi
+
+table inet travelpi {
+	# Packets that pass through the Pi from one interface to another.
+	# Everything that is not allowed below is dropped (policy drop).
+	chain forward {
+		type filter hook forward priority filter; policy drop;
+
+		# IPv6 is not forwarded at all, so nothing can bypass the later tunnel over IPv6.
+		meta nfproto ipv6 drop
+
+		# Answers to connections that were allowed are let back in.
+		ct state established,related accept
+		ct state invalid drop
+
+		# New connections: only from the own Wi-Fi, only out through the uplink.
+		iifname $AP_IF oifname $UPLINK_IF ip saddr $AP_NET accept
+	}
+
+	# Address translation: devices of the own Wi-Fi go out with the address of the Pi.
+	chain postrouting {
+		type nat hook postrouting priority srcnat; policy accept;
+
+		oifname $UPLINK_IF ip saddr $AP_NET masquerade
+	}
+}
