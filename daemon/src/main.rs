@@ -1,6 +1,7 @@
 //! `travelpid`, the system daemon of TravelPi.
 
 mod core;
+mod modules;
 
 use std::path::PathBuf;
 use std::process::ExitCode;
@@ -77,9 +78,9 @@ async fn main() -> ExitCode {
         spawn_module(ap_reporter, simulation::ap);
         spawn_module(uplink_reporter, simulation::uplink);
     } else {
-        // The real modules (ap, uplink) are started here once they exist.
-        tracing::warn!("no modules yet; every section keeps its initial state");
-        unused_reporters = Some((ap_reporter, uplink_reporter));
+        spawn_module(uplink_reporter, modules::uplink::run);
+        // The module ap (Lukas) is started here once it exists.
+        unused_reporters = Some(ap_reporter);
     }
 
     let result = server::serve(router(Sections { ap, uplink }), &options.socket).await;
