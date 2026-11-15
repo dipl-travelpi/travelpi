@@ -1,0 +1,111 @@
+# Checks for every pull request and every push to main.
+#
+# All jobs run every time, without path filters: the jobs are required checks on main, and a
+# required check that is skipped because of a path filter would block the pull request.
+
+name: Checks
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+# A new push to the same pull request cancels the run that is still going.
+concurrency:
+  group: checks-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  daemon:
+    name: daemon (fmt, clippy, test)
+    runs-on: ubuntu-24.04
+    defaults:
+      run:
+        working-directory: daemon
+    steps:
+      - uses: actions/checkout@v7
+      - name: Install Rust
+        run: rustup toolchain install stable --profile minimal --component rustfmt,clippy
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: daemon
+      - run: cargo fmt --check
+      - run: cargo clippy --all-targets -- -D warnings
+      - run: cargo test
+
+  daemon-pi:
+    name: daemon (build for the Pi)
+    # Built natively on an ARM runner, in the same Debian 13 image as on the laptop, so the
+    # binary fits Raspberry Pi OS on the Pi.
+    runs-on: ubuntu-24.04-arm
+    container: rust:1-trixie
+    steps:
+      - uses: actions/checkout@v7
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: daemon
+      - name: Build
+        working-directory: daemon
+        run: cargo build --release --locked
+      - name: Check the binary
+        run: file daemon/target/release/travelpid | grep -q 'ARM aarch64'
+      - uses: actions/upload-artifact@v7
+        with:
+          name: travelpid-aarch64
+          path: daemon/target/release/travelpid
+          if-no-files-found: error
+          retention-days: 30
+
+  dashboard:
+    name: dashboard (check, lint, test)
+    runs-on: ubuntu-24.04
+    defaults:
+      run:
+        working-directory: dashboard
+    steps:
+      - uses: actions/checkout@v7
+      # The dashboard is not on main yet in every branch; then there is nothing to check.
+      - name: Look for the dashboard
+        id: present
+        working-directory: .
+        run: |
+          if [ -f dashboard/package.json ]; then
+            echo "found=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "No dashboard/package.json, nothing to check."
+          fi
+      - if: steps.present.outputs.found == 'true'
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: dashboard/package-lock.json
+      - if: steps.present.outputs.found == 'true'
+        run: npm ci
+      - if: steps.present.outputs.found == 'true'
+        run: npm run check
+      - if: steps.present.outputs.found == 'true'
+        run: npm run lint
+      - if: steps.present.outputs.found == 'true'
+        run: npm test
+
+  api:
+    name: api (OpenAPI lint)
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+      - run: npx --yes @redocly/cli@1 lint api/openapi.yaml
+
+  setup:
+    name: setup (shellcheck)
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v7
+      - name: shellcheck
+        run: find setup -name '*.sh' -print0 | xargs -0 --no-run-if-empty shellcheck

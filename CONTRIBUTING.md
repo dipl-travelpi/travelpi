@@ -29,3 +29,20 @@ progress can be opened as a draft pull request.
 ## Building
 
 Binaries for the Raspberry Pi are built on a development computer or by CI, never on the device.
+
+## Checks
+
+Every pull request and every push to `main` runs the checks in
+`.github/workflows/checks.yml`. All of them must pass before a pull request can be merged.
+
+| Job | What it runs |
+|---|---|
+| `daemon` | `cargo fmt --check`, `cargo clippy --all-targets -- -D warnings`, `cargo test` |
+| `daemon-pi` | `cargo build --release` for the Pi (`aarch64`, Debian 13) |
+| `dashboard` | `npm run check`, `npm run lint`, `npm test` |
+| `api` | `npx @redocly/cli@1 lint api/openapi.yaml` |
+| `setup` | `shellcheck` on every `*.sh` in `setup/` |
+
+Run the same commands locally before pushing. The binary for the Pi from the `daemon-pi` job can
+be downloaded as the artifact `travelpid-aarch64` on the page of the workflow run (kept for 30
+days).
